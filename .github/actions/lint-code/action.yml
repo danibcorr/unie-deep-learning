@@ -1,0 +1,31 @@
+name: Lint Code
+
+inputs:
+  src-project-folder:
+    description: "Directory where the project is located"
+    required: true
+    default: "src"
+
+runs:
+  using: composite
+  steps:
+    - name: Lint with ruff
+      id: ruff
+      run: |
+        echo "Running ruff linter..."  
+        uv run ruff check ${{ inputs.src-project-folder }}/
+      shell: bash
+
+    - name: Type check with Mypy
+      id: mypy
+      run: |
+        echo "Running Mypy type checker..." 
+        uv run mypy ${{ inputs.src-project-folder }}/
+      shell: bash
+
+    - name: Cognitive complexity analysis with Complexipy
+      id: complexipy
+      run: |
+        echo "Running Complexipy for cognitive complexity analysis..."
+        uv run complexipy ${{ inputs.src-project-folder }}/
+      shell: bash

@@ -1,0 +1,28 @@
+name: Test Code
+
+inputs:
+  src-project-folder:
+    description: "Directory where the project is located"
+    required: true
+    default: "src"
+
+  src-tests-folder:
+    description: "Directory where the tests are located"
+    required: true
+    default: "tests"
+
+runs:
+  using: composite
+  steps:
+    - name: Run tests with Pytest
+      id: run-pytest
+      shell: bash
+      run: |
+        echo "Checking if tests directory exists..."
+        if [ -d "${{ inputs.src-tests-folder }}" ] && [ $(find ${{ inputs.src-tests-folder }} -name "test_*.py" | wc -l) -gt 0 ]; then
+          echo "Running tests..."
+          uv run pytest ${{ inputs.src-tests-folder }}
+          echo "Tests complete."
+        else
+          echo "No tests directory found or no test files. Skipping tests."
+        fi
