@@ -1,3 +1,0 @@
-# Config
-
-::: src.config.config

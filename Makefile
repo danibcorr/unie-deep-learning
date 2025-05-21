@@ -11,8 +11,6 @@ SRC_TESTS ?= tests
 # Install project dependencies
 install:
 	@echo "Installing dependencies..."
-	@pip install --upgrade pip
-	@pip install uv
 	@uv pip install -r pyproject.toml --group pipeline --group documentation
 	@echo "✅ Dependencies installed."
 
