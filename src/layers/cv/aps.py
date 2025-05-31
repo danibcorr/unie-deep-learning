@@ -15,16 +15,34 @@ class APS(nn.Module):
 		self,
 		norm: int | float | Literal["fro", "nuc", "inf", "-inf"] | None = 2,
 	) -> None:
+		"""
+		Initializes the class with normalization option.
+
+		Args:
+			norm: Normalization type or value, defaults to 2.
+		"""
+
 		# Constructor de la clase
 		super().__init__()
 
-		# Definimos parámetros internos de la clase
+		# Definimos los parámetros de la clase
 		self._stride = 2
 		self.norm = norm
 
 	def forward(
 		self, input_tensor: torch.Tensor, return_index: bool = False
 	) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor]:
+		"""
+		Processes input tensor to extract dominant polyphase component.
+
+		Args:
+			input_tensor: Tensor with shape (B, C, H, W).
+			return_index: If True, returns index of dominant component.
+
+		Returns:
+			Output tensor, optionally with index if return_index is True.
+		"""
+
 		# Tenemos a la entrada un tensor de (B, C, H, W)
 		# El número de componentes polifásicas coincide con el tamaño
 		# de paso elevado al cuadrado, porque nos vemos tanto en la

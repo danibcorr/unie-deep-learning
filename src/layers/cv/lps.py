@@ -12,10 +12,18 @@ from torch.nn import functional as F
 
 class LPS(nn.Module):
 	def __init__(self, channel_size: int, hidden_size: int) -> None:
+		"""
+		Initializes the model with specified channel and hidden sizes.
+
+		Args:
+			channel_size: Number of input channels for the Conv2D layer.
+			hidden_size: Number of hidden units for the Conv2D layer.
+		"""
+
 		# Constructor de la clase
 		super().__init__()
 
-		# Definimos parámetros internos de la clase
+		# Definimos los parámetros de la clase
 		self._stride = 2
 
 		# Definimos el modelo único para cada componente
@@ -42,6 +50,17 @@ class LPS(nn.Module):
 	def forward(
 		self, input_tensor: torch.Tensor, return_index: bool = False
 	) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor]:
+		"""
+		Processes input to extract dominant polyphase component.
+
+		Args:
+			input_tensor: Tensor with shape (B, C, H, W).
+			return_index: If True, returns index of dominant component.
+
+		Returns:
+			Tensor of dominant component, optionally with index.
+		"""
+
 		# Tenemos a la entrada un tensor de (B, C, H, W)
 		# El número de componentes polifásicas coincide con el tamaño
 		# de paso elevado al cuadrado, porque nos vemos tanto en la

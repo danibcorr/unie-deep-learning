@@ -10,11 +10,11 @@ from torch import nn
 class SqueezeExcitation(nn.Module):
 	def __init__(self, channel_size: int, ratio: int) -> None:
 		"""
-		Implementación del bloque Squeeze-and-Excitation (SE).
+		Implements Squeeze-and-Excitation (SE) block.
 
 		Args:
-			channel_size: Número de canales de entrada
-			ratio: Factor de reducción para la capa de compresión
+			channel_size: Number of channels in the input tensor.
+			ratio: Reduction factor for the compression layer.
 		"""
 
 		# Constructor de la clase
@@ -35,6 +35,16 @@ class SqueezeExcitation(nn.Module):
 		)
 
 	def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
+		"""
+		Applies attention mechanism to input tensor.
+
+		Args:
+			input_tensor: Input tensor with shape (B, C, H, W).
+
+		Returns:
+			Tensor with attention applied, same shape as input.
+		"""
+
 		# Primero podemos obtener el tamaño del tensor de entrada
 		b, c, _, _ = input_tensor.size()
 
