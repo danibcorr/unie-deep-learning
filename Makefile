@@ -8,10 +8,10 @@
 SRC_PROJECT_NAME ?= src
 SRC_TESTS ?= tests
 
-# Install project dependencies
+# Allows the installation of project dependencies
 install:
 	@echo "Installing dependencies..."
-	@uv pip install -r pyproject.toml --group pipeline --group documentation
+	@uv pip install -r pyproject.toml --all-extras
 	@echo "✅ Dependencies installed."
 
 # Clean cache and temporary files

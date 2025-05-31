@@ -1,3 +1,8 @@
+"""
+Este clase implementa la capa SE de este paper: https://arxiv.org/abs/1709.01507
+"""
+
+# 3pps
 import torch
 from torch import nn
 
@@ -29,32 +34,7 @@ class SqueezeExcitation(nn.Module):
 			nn.Sigmoid(),
 		)
 
-		# Aunque también lo podemos hacer por capa
-		# self.pooling = nn.AdaptiveAvgPool2d((1, 1))
-		# self.linear_1 = nn.Linear(channel_size, channel_size//ratio)
-		# self.linear_2 = nn.Linear(channel_size//ratio, channel_size)
-		# self.act_relu = nn.ReLU()
-		# self.act_sigmoid = nn.Sigmoid()
-
 	def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-		# x = self.pooling(input_tensor)
-		# x = x.squeeze()
-		# print(x.shape)
-
-		# x = self.linear_1(x)
-		# print(x.shape)
-
-		# x = self.act_relu(x)
-		# print(x.shape)
-
-		# x = self.linear_2(x)
-		# print(x.shape)
-
-		# x = self.act_sigmoid(x)
-		# x = torch.unsqueeze(x, -1)
-		# x = torch.unsqueeze(x, -1)
-		# print(x.shape)
-
 		# Primero podemos obtener el tamaño del tensor de entrada
 		b, c, _, _ = input_tensor.size()
 
