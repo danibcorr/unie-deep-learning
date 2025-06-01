@@ -1,4 +1,4 @@
-site_name: "Project Title MkDocs"
+site_name: Papers with code
 site_description: "Papers with code in PyTorch"
 repo_name: "papers-with-code"
 repo_url: "https://github.com/danibcorr/papers-with-code"
@@ -13,14 +13,14 @@ theme:
       primary: deep purple
       accent: deep purple
       toggle:
-        icon: material/weather-sunny
+        icon: material/weather-night
         name: "Switch to dark mode"
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: deep purple
       accent: deep purple
       toggle:
-        icon: material/weather-night
+        icon: material/weather-sunny
         name: "Switch to light mode"
   features:
     - content.tabs.link
