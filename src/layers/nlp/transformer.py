@@ -213,7 +213,8 @@ class MultiHeadAttention(nn.Module):
 
         # el tamalo de los embeddings debe ser proporcional al número de cabezas
         # para realizar la división, por lo que es el resto ha de ser 0
-        assert d_model % h == 0, "d_model ha de ser divisible entre h"
+        if d_model % h == 0:
+            raise ValueError("d_model ha de ser divisible entre h")
 
         self.d_model = d_model
         self.h = h
