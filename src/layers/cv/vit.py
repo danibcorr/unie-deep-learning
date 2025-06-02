@@ -7,8 +7,48 @@ from torch import nn
 from torch.nn import functional as F
 
 
-class InputEmbedding(nn.Module):
-    def __init__(self, d_model: int, vocab_size: int) -> None:
+class Patches(nn.Module):
+    def __init__(
+        self,
+        patch_size_height: int,
+        patch_size_width: int,
+        img_height: int,
+        img_width: int,
+    ) -> None:
+        super().__init__()
+
+        if img_height % patch_size_height != 0:
+            raise ValueError(
+                "img_height tiene que se divisible entre el patch_size_height"
+            )
+
+        if img_width % patch_size_width != 0:
+            raise ValueError(
+                "img_width tiene que se divisible entre el patch_size_width"
+            )
+
+        self.patch_size_height = patch_size_height
+        self.patch_size_width = patch_size_width
+        self.unfold = nn.Unfold(
+            kernel_size=(self.patch_size_height, self.patch_size_width),
+            stride=(self.patch_size_height, self.patch_size_width),
+        )
+
+    def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
+        # unfold devuelve (b, c * patch_height * patch_width, num_patches)
+        patches = self.unfold(input_tensor)
+        # Necesitamos (B, NUM_PATCHES, C * patch_size_height * patch_size_width)
+        return patches.transpose(2, 1)
+
+
+class PatchEmbedding(nn.Module):
+    def __init__(
+        self,
+        patch_size_height: int,
+        patch_size_width: int,
+        in_channels: int,
+        d_model: int,
+    ) -> None:
         """_summary_
 
         Args:
@@ -20,16 +60,17 @@ class InputEmbedding(nn.Module):
         super().__init__()
 
         # Definimos los parámetros de la clase
+        self.patch_size_height = patch_size_height
+        self.patch_size_width = patch_size_width
+        self.in_channels = in_channels
         self.d_model = d_model
-        self.vocab_size = vocab_size
 
-        # Utilizamos la capa Embedding de PyTorch que funciona como
-        # una tabal lookup that stores embeddings of a fixed dictionary and size.
-        # Osea que es un diccionario que tiene por cada token, hasta un total de
-        # vocab_size, un vector de tamaño d_model. En el paper: we use learned
-        # embeddings to convert the input tokens and output tokens to vectors
-        # of dimension dmodel
-        self.embedding = nn.Embedding(num_embeddings=vocab_size, embedding_dim=d_model)
+        self.embedding = nn.Linear(
+            in_features=self.in_channels
+            * self.patch_size_height
+            * self.patch_size_width,
+            out_features=self.d_model,
+        )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
         """_summary_
@@ -41,9 +82,7 @@ class InputEmbedding(nn.Module):
             torch.Tensor: _description_
         """
 
-        # Paper: In the embedding layers, we multiply those weights by sqrt(d_model)
-        # Input_tensor (B, ...) -> (B, ..., d_model)
-        return self.embedding(input_tensor) * math.sqrt(self.d_model)
+        return self.embedding(input_tensor)
 
 
 class PositionalEncoding(nn.Module):
@@ -70,17 +109,6 @@ class PositionalEncoding(nn.Module):
         # Creamos una matriz del positional embedding
         # (sequence_length, d_model)
         pe_matrix = torch.zeros(size=(self.sequence_length, self.d_model))
-
-        # # Ahora rellenamos la matriz de posiciones
-        # # La posición va hasta el máximo de la longitud de la secuencia
-        # for pos in range(self.sequence_length):
-        # 	for i in range(0, d_model, 2):
-        # 		# Para las posiciones pares usamos el seno
-        # 		pe_matrix[pos, i] = torch.sin(pos / (10000 ** ((2 * i) / d_model)))
-        # 		# Para las posiciones impares usamos el coseno
-        # 		pe_matrix[pos, i + 1] = torch.cos(
-        # 			pos / (10000 ** ((2 * (i + 1)) / d_model))
-        # 		)
 
         # Crear vector de posiciones
         position = torch.arange(0, self.sequence_length, dtype=torch.float).unsqueeze(1)
@@ -179,7 +207,7 @@ class FeedForward(nn.Module):
         # Creamos el modelo secuencial
         self.ffn = nn.Sequential(
             nn.Linear(in_features=self.d_model, out_features=self.d_ff),
-            nn.ReLU(),
+            nn.GELU(),
             nn.Dropout(dropout_rate),
             nn.Linear(in_features=self.d_ff, out_features=self.d_model),
         )
@@ -435,175 +463,62 @@ class EncoderBlock(nn.Module):
         return input_tensor
 
 
-class DecoderBlock(nn.Module):
-    def __init__(self, d_model: int, d_ff: int, h: int, dropout_rate: float) -> None:
-        """_summary_
-
-        Args:
-            d_model (int): _description_
-            d_ff (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
-        """
-
-        super().__init__()
-
-        # Parametros
-        self.d_model = d_model
-        self.d_ff = d_ff
-        self.h = h
-        self.dropout_rate = dropout_rate
-
-        self.masked_multi_head_attention_layer = MultiHeadAttention(
-            d_model=self.d_model, h=self.h, dropout_rate=self.dropout_rate
-        )
-        self.residual_layer_1 = ResidualConnection(
-            features=d_model, dropout_rate=self.dropout_rate
-        )
-        self.multi_head_attention_layer = MultiHeadAttention(
-            d_model=self.d_model, h=self.h, dropout_rate=self.dropout_rate
-        )
-        self.residual_layer_2 = ResidualConnection(
-            features=d_model, dropout_rate=self.dropout_rate
-        )
-        self.feed_forward_layer = FeedForward(
-            d_model=self.d_model, d_ff=self.d_ff, dropout_rate=self.dropout_rate
-        )
-        self.residual_layer_3 = ResidualConnection(
-            features=d_model, dropout_rate=self.dropout_rate
-        )
-
-    def forward(
-        self,
-        decoder_input: torch.Tensor,
-        encoder_output: torch.Tensor,
-        src_mask: torch.Tensor | None = None,  # Máscara para el encoder (padding)
-        tgt_mask: torch.Tensor | None = None,  # Máscara causal para el decoder
-    ) -> torch.Tensor:
-        """_summary_
-
-        Args:
-            decoder_input (torch.Tensor): _description_
-            encoder_output (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
-
-        Returns:
-            torch.Tensor: _description_
-        """
-
-        # Utilizamos self-attention, por lo que k, q, v son del mismo vector de entrada
-        decoder_input = self.residual_layer_1(
-            decoder_input,
-            lambda x: self.masked_multi_head_attention_layer(
-                k=x, q=x, v=x, mask=tgt_mask
-            ),
-        )
-
-        # Aquí tenemos que hacer cross-attention, usamos como K, V los encoder
-        # y Q del decoder
-        decoder_input = self.residual_layer_2(
-            decoder_input,
-            lambda x: self.multi_head_attention_layer(
-                k=encoder_output, q=x, v=encoder_output, mask=src_mask
-            ),
-        )
-
-        decoder_output = self.residual_layer_3(
-            decoder_input, lambda x: self.feed_forward_layer(x)
-        )
-
-        return decoder_output
-
-
-class ProjectionLayer(nn.Module):
-    # Esto permite convertir de d_model al vocab_size de nuevo
-
-    def __init__(self, d_model: int, vocab_size: int) -> None:
-        """_summary_
-
-        Args:
-            d_model (int): _description_
-            vocab_size (int): _description_
-        """
-
-        super().__init__()
-
-        self.d_model = d_model
-        self.vocab_size = vocab_size
-
-        self.projection_layer = nn.Linear(in_features=d_model, out_features=vocab_size)
-
-    def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
-
-        Args:
-            input_tensor (torch.Tensor): _description_
-
-        Returns:
-            torch.Tensor: _description_
-        """
-
-        return self.projection_layer(input_tensor)
-
-
-class Transformer(nn.Module):
+class VIT(nn.Module):
     def __init__(
         self,
-        src_vocab_size: int,
-        tgt_vocab_size: int,
-        src_seq_len: int,
-        tgt_seq_len: int,
+        patch_size_height: int,
+        patch_size_width: int,
+        img_height: int,
+        img_width: int,
+        in_channels: int,
         num_encoders: int,
-        num_decoders: int,
         d_model: int,
         d_ff: int,
         h: int,
+        num_classes: int,
         dropout_rate: float,
     ) -> None:
-        """_summary_
-
-        Args:
-            src_vocab_size (int): _description_
-            tgt_vocab_size (int): _description_
-            src_seq_len (int): _description_
-            tgt_seq_len (int): _description_
-            num_encoders (int): _description_
-            num_decoders (int): _description_
-            d_model (int): _description_
-            d_ff (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
-        """
-
         super().__init__()
 
-        # Parámetros
-        self.src_vocab_size = src_vocab_size
-        self.tgt_vocab_size = tgt_vocab_size
-        self.src_seq_len = src_seq_len
-        self.tgt_seq_len = tgt_seq_len
+        self.patch_size_height = patch_size_height
+        self.patch_size_width = patch_size_width
+        self.img_height = img_height
+        self.img_width = img_width
+        self.in_channels = in_channels
         self.num_encoders = num_encoders
-        self.num_decoders = num_decoders
         self.d_model = d_model
         self.d_ff = d_ff
         self.h = h
+        self.num_classes = num_classes
         self.dropout_rate = dropout_rate
 
-        # Embeddings y Positional Encoding
-        self.src_embedding = InputEmbedding(
-            d_model=self.d_model, vocab_size=self.src_vocab_size
+        # Número de patches
+        self.num_patches = (img_height // patch_size_height) * (
+            img_width // patch_size_width
         )
-        self.tgt_embedding = InputEmbedding(
-            d_model=self.d_model, vocab_size=self.tgt_vocab_size
+
+        # AÑADIDO: CLS token
+        self.cls_token = nn.Parameter(torch.randn(1, 1, self.d_model))
+
+        self.patch_layer = Patches(
+            patch_size_height=self.patch_size_height,
+            patch_size_width=self.patch_size_width,
+            img_height=self.img_height,
+            img_width=self.img_width,
         )
-        self.src_positional_encoding = PositionalEncoding(
+
+        self.embeddings = PatchEmbedding(
+            patch_size_height=self.patch_size_height,
+            patch_size_width=self.patch_size_width,
+            in_channels=self.in_channels,
             d_model=self.d_model,
-            sequence_length=self.src_seq_len,
-            dropout_rate=self.dropout_rate,
         )
-        self.tgt_positional_encoding = PositionalEncoding(
+
+        # Entiendo que la longitud de la secuencia coincide con el numero de patches
+        # y un embedding más de la clase?
+        self.positional_encoding = PositionalEncoding(
             d_model=self.d_model,
-            sequence_length=self.tgt_seq_len,
+            sequence_length=self.num_patches + 1,
             dropout_rate=self.dropout_rate,
         )
 
@@ -620,105 +535,61 @@ class Transformer(nn.Module):
             ]
         )
 
-        # Capas del Decoder
-        self.decoder_layers = nn.ModuleList(
-            [
-                DecoderBlock(
-                    d_model=self.d_model,
-                    d_ff=self.d_ff,
-                    h=self.h,
-                    dropout_rate=self.dropout_rate,
-                )
-                for _ in range(self.num_decoders)
-            ]
+        self.layer_norm = LayerNormalization(features=self.d_model)
+
+        self.mlp_classifier = nn.Sequential(
+            nn.Linear(in_features=self.d_model, out_features=self.d_model),
+            nn.GELU(),
+            nn.Dropout(self.dropout_rate),
+            nn.Linear(in_features=self.d_model, out_features=num_classes),
         )
 
-        # Capa de proyección final
-        self.projection_layer = ProjectionLayer(
-            d_model=self.d_model, vocab_size=self.tgt_vocab_size
-        )
+    def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
+        # Extraemos los patches
+        input_patches = self.patch_layer(input_tensor)
 
-    def encode(
-        self, encoder_input: torch.Tensor, src_mask: torch.Tensor | None = None
-    ) -> torch.Tensor:
-        """_summary_
+        # Convertimso a embeddings los patches
+        patch_embeddings = self.embeddings(input_patches)
 
-        Args:
-            encoder_input (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
+        # Tenemos que añadir el token de la clase al inicio de la secuencia
+        # (B, 1, d_model)
+        cls_tokens = self.cls_token.expand(input_tensor.shape[0], -1, -1)
+        # (B, num_patches+1, d_model)
+        embeddings = torch.cat([cls_tokens, patch_embeddings], dim=1)
 
-        Returns:
-            torch.Tensor: _description_
-        """
+        # Añadir positional encoding
+        embeddings = self.positional_encoding(embeddings)
 
-        # Aplicar embedding y positional encoding
-        x = self.src_embedding(encoder_input)
-        x = self.src_positional_encoding(x)
-
-        # Pasar por todas las capas del encoder
+        # Encoders del transformer
+        encoder_output = embeddings
         for encoder_layer in self.encoder_layers:
-            x = encoder_layer(input_tensor=x, mask=src_mask)
+            encoder_output = encoder_layer(encoder_output)
 
-        return x
+        # Usar solo el CLS token para clasificación
+        encoder_output = self.layer_norm(encoder_output)
+        cls_output = encoder_output[:, 0]
 
-    def decode(
-        self,
-        decoder_input: torch.Tensor,
-        encoder_output: torch.Tensor,
-        src_mask: torch.Tensor | None = None,
-        tgt_mask: torch.Tensor | None = None,
-    ) -> torch.Tensor:
-        """_summary_
+        # Clasificación final
+        return self.mlp_classifier(cls_output)
 
-        Args:
-            decoder_input (torch.Tensor): _description_
-            encoder_output (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
-            tgt_mask (torch.Tensor | None, optional): _description_. Defaults to None.
 
-        Returns:
-            torch.Tensor: _description_
-        """
+if __name__ == "__main__":
+    model = VIT(
+        patch_size_height=16,
+        patch_size_width=16,
+        img_height=224,
+        img_width=224,
+        in_channels=3,
+        num_encoders=12,
+        d_model=768,
+        d_ff=3072,
+        h=12,
+        num_classes=1000,
+        dropout_rate=0.1,
+    )
 
-        # Aplicar embedding y positional encoding
-        x = self.tgt_embedding(decoder_input)
-        x = self.tgt_positional_encoding(x)
-
-        # Pasar por todas las capas del decoder
-        for decoder_layer in self.decoder_layers:
-            x = decoder_layer(
-                decoder_input=x,
-                encoder_output=encoder_output,
-                src_mask=src_mask,
-                tgt_mask=tgt_mask,
-            )
-
-        return x
-
-    def forward(
-        self,
-        src: torch.Tensor,
-        tgt: torch.Tensor,
-        src_mask: torch.Tensor | None = None,
-        tgt_mask: torch.Tensor | None = None,
-    ) -> torch.Tensor:
-        """_summary_
-
-        Args:
-            src (torch.Tensor): _description_
-            tgt (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
-            tgt_mask (torch.Tensor | None, optional): _description_. Defaults to None.
-
-        Returns:
-            torch.Tensor: _description_
-        """
-
-        # Encoder
-        encoder_output = self.encode(src, src_mask)
-
-        # Decoder
-        decoder_output = self.decode(tgt, encoder_output, src_mask, tgt_mask)
-
-        # Projection
-        return self.projection_layer(decoder_output)
+    # Tensor de ejemplo
+    x = torch.randn(2, 3, 224, 224)
+    output = model(x)
+    print(f"Input shape: {x.shape}")
+    print(f"Output shape: {output.shape}")  # Debería ser (2, 1000)
