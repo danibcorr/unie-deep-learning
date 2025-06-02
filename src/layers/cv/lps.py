@@ -16,8 +16,8 @@ class LPS(nn.Module):
         Initializes the model with specified channel and hidden sizes.
 
         Args:
-                channel_size: Number of input channels for the Conv2D layer.
-                hidden_size: Number of hidden units for the Conv2D layer.
+            channel_size: Number of input channels for the Conv2D layer.
+            hidden_size: Number of hidden units for the Conv2D layer.
         """
 
         # Constructor de la clase
@@ -54,11 +54,11 @@ class LPS(nn.Module):
         Processes input to extract dominant polyphase component.
 
         Args:
-                input_tensor: Tensor with shape (B, C, H, W).
-                return_index: If True, returns index of dominant component.
+            input_tensor: Tensor with shape (B, C, H, W).
+            return_index: If True, returns index of dominant component.
 
         Returns:
-                Tensor of dominant component, optionally with index.
+            Tensor of dominant component, optionally with index.
         """
 
         # Tenemos a la entrada un tensor de (B, C, H, W)
@@ -94,3 +94,13 @@ class LPS(nn.Module):
 
         # En caso contrario solo devolvemos el tensor
         return output_tensor
+
+
+if __name__ == "__main__":
+    model = LPS(channel_size=3, hidden_size=64)
+
+    x = torch.randn(1, 3, 4, 4)
+    print(x)
+
+    output_model = model(x)
+    print(output_model)

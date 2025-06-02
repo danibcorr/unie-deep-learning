@@ -13,8 +13,8 @@ class SqueezeExcitation(nn.Module):
         Implements Squeeze-and-Excitation (SE) block.
 
         Args:
-                channel_size: Number of channels in the input tensor.
-                ratio: Reduction factor for the compression layer.
+            channel_size: Number of channels in the input tensor.
+            ratio: Reduction factor for the compression layer.
         """
 
         # Constructor de la clase
@@ -39,10 +39,10 @@ class SqueezeExcitation(nn.Module):
         Applies attention mechanism to input tensor.
 
         Args:
-                input_tensor: Input tensor with shape (B, C, H, W).
+            input_tensor: Input tensor with shape (B, C, H, W).
 
         Returns:
-                Tensor with attention applied, same shape as input.
+            Tensor with attention applied, same shape as input.
         """
 
         # Primero podemos obtener el tamaño del tensor de entrada
@@ -56,3 +56,13 @@ class SqueezeExcitation(nn.Module):
 
         # Aplicamos el producto como mecanismo de atención
         return x * input_tensor
+
+
+if __name__ == "__main__":
+    model = SqueezeExcitation(channel_size=3, ratio=16)
+
+    x = torch.randn(1, 3, 4, 4)
+    print(x)
+
+    output_model = model(x)
+    print(output_model)

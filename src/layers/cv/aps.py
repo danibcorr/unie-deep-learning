@@ -19,7 +19,7 @@ class APS(nn.Module):
         Initializes the class with normalization option.
 
         Args:
-                norm: Normalization type or value, defaults to 2.
+            norm: Normalization type or value, defaults to 2.
         """
 
         # Constructor de la clase
@@ -36,11 +36,11 @@ class APS(nn.Module):
         Processes input tensor to extract dominant polyphase component.
 
         Args:
-                input_tensor: Tensor with shape (B, C, H, W).
-                return_index: If True, returns index of dominant component.
+            input_tensor: Tensor with shape (B, C, H, W).
+            return_index: If True, returns index of dominant component.
 
         Returns:
-                Output tensor, optionally with index if return_index is True.
+            Output tensor, optionally with index if return_index is True.
         """
 
         # Tenemos a la entrada un tensor de (B, C, H, W)
@@ -78,3 +78,13 @@ class APS(nn.Module):
 
         # En caso contrario solo devolvemos el tensor
         return output_tensor
+
+
+if __name__ == "__main__":
+    model = APS()
+
+    x = torch.randn(1, 3, 4, 4)
+    print(x)
+
+    output_model = model(x)
+    print(output_model)
