@@ -92,7 +92,7 @@ class MoE(nn.Module):
 
     def __init__(
         self,
-        trained_experts: list[nn.Module],
+        trained_experts: list[ExpertModel],
         input_dim: int,
         dropout_rate: float = 0.2,
     ) -> None:
@@ -131,12 +131,12 @@ class MoE(nn.Module):
         expert_weights = self.gating_layer(input_tensor)
 
         # Obtenemos la salida de todos los expertos
-        expert_outputs = []
+        _expert_outputs: list[torch.Tensor] = []
         for expert in self.experts:
-            expert_outputs.append(expert(input_tensor))
+            _expert_outputs.append(expert(input_tensor))
 
         # Stack de salidas [b, output_dim, num_experts]
-        expert_outputs = torch.stack(expert_outputs, dim=-1)
+        expert_outputs = torch.stack(_expert_outputs, dim=-1)
 
         # [b, num_experts] -> [b, 1, num_experts]
         expert_weights = expert_weights.unsqueeze(1)
