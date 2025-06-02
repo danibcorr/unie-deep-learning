@@ -15,6 +15,19 @@ class Patches(nn.Module):
         img_height: int,
         img_width: int,
     ) -> None:
+        """_summary_
+
+        Args:
+            patch_size_height (int): _description_
+            patch_size_width (int): _description_
+            img_height (int): _description_
+            img_width (int): _description_
+
+        Raises:
+            ValueError: _description_
+            ValueError: _description_
+        """
+
         super().__init__()
 
         if img_height % patch_size_height != 0:
@@ -35,6 +48,15 @@ class Patches(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
+        """_summary_
+
+        Args:
+            input_tensor (torch.Tensor): _description_
+
+        Returns:
+            torch.Tensor: _description_
+        """
+
         # unfold devuelve (b, c * patch_height * patch_width, num_patches)
         patches = self.unfold(input_tensor)
         # Necesitamos (B, NUM_PATCHES, C * patch_size_height * patch_size_width)
@@ -65,6 +87,9 @@ class PatchEmbedding(nn.Module):
         self.in_channels = in_channels
         self.d_model = d_model
 
+        # Esta es una de las diferencias con usar transformers en el texto
+        # Aquí usamos FFN en vez de Embedding layer, es una proyección
+        # de los pixeles
         self.embedding = nn.Linear(
             in_features=self.in_channels
             * self.patch_size_height
@@ -478,6 +503,22 @@ class VIT(nn.Module):
         num_classes: int,
         dropout_rate: float,
     ) -> None:
+        """_summary_
+
+        Args:
+            patch_size_height (int): _description_
+            patch_size_width (int): _description_
+            img_height (int): _description_
+            img_width (int): _description_
+            in_channels (int): _description_
+            num_encoders (int): _description_
+            d_model (int): _description_
+            d_ff (int): _description_
+            h (int): _description_
+            num_classes (int): _description_
+            dropout_rate (float): _description_
+        """
+
         super().__init__()
 
         self.patch_size_height = patch_size_height
@@ -497,7 +538,8 @@ class VIT(nn.Module):
             img_width // patch_size_width
         )
 
-        # AÑADIDO: CLS token
+        # CLS token permite tener una representación global de todos los inputs
+        # de la imagen (de los diferentes embeddings de cada patch)
         self.cls_token = nn.Parameter(torch.randn(1, 1, self.d_model))
 
         self.patch_layer = Patches(
@@ -515,7 +557,7 @@ class VIT(nn.Module):
         )
 
         # Entiendo que la longitud de la secuencia coincide con el numero de patches
-        # y un embedding más de la clase?
+        # y un embedding más de la clase,
         self.positional_encoding = PositionalEncoding(
             d_model=self.d_model,
             sequence_length=self.num_patches + 1,
