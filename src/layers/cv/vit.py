@@ -15,17 +15,18 @@ class Patches(nn.Module):
         img_height: int,
         img_width: int,
     ) -> None:
-        """_summary_
+        """
+        Initialize patch extraction module.
 
         Args:
-            patch_size_height (int): _description_
-            patch_size_width (int): _description_
-            img_height (int): _description_
-            img_width (int): _description_
+            patch_size_height: Height of each patch.
+            patch_size_width: Width of each patch.
+            img_height: Height of the input image.
+            img_width: Width of the input image.
 
         Raises:
-            ValueError: _description_
-            ValueError: _description_
+            ValueError: If img_height not divisible by patch height.
+            ValueError: If img_width not divisible by patch width.
         """
 
         super().__init__()
@@ -48,13 +49,14 @@ class Patches(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Extract patches from input tensor.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Batch of images as a tensor.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor with patches from input images.
         """
 
         # unfold devuelve (b, c * patch_height * patch_width, num_patches)
@@ -71,11 +73,14 @@ class PatchEmbedding(nn.Module):
         in_channels: int,
         d_model: int,
     ) -> None:
-        """_summary_
+        """
+        Initialize patch embedding module.
 
         Args:
-            d_model (int): _description_
-            vocab_size (int): _description_
+            patch_size_height: Height of each patch.
+            patch_size_width: Width of each patch.
+            in_channels: Number of input channels.
+            d_model: Dimension of the model.
         """
 
         # Constructor de la clase
@@ -98,13 +103,14 @@ class PatchEmbedding(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Apply linear projection to input tensor.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Batch of image patches as a tensor.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor after linear projection of patches.
         """
 
         return self.embedding(input_tensor)
@@ -112,12 +118,13 @@ class PatchEmbedding(nn.Module):
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model: int, sequence_length: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initialize positional encoding module.
 
         Args:
-            d_model (int): _description_
-            sequence_length (int): _description_
-            dropout_rate (float): _description_
+            d_model: Dimension of the model.
+            sequence_length: Max length of input sequences.
+            dropout_rate: Dropout rate applied on outputs.
         """
 
         # Constructor de la clase
@@ -155,13 +162,14 @@ class PositionalEncoding(nn.Module):
         self.register_buffer(name="pe_matrix", tensor=pe_matrix)
 
     def forward(self, input_embedding: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Add positional encoding to input embeddings.
 
         Args:
-            input_embedding (torch.Tensor): _description_
+            input_embedding: Batch of input embeddings.
 
         Returns:
-            torch.Tensor: _description_
+            Embeddings with added positional encoding.
         """
 
         # (B, ..., d_model) -> (B, sequence_length, d_model)
@@ -174,11 +182,12 @@ class PositionalEncoding(nn.Module):
 
 class LayerNormalization(nn.Module):
     def __init__(self, features: int, eps: float = 1e-6) -> None:
-        """_summary_
+        """
+        Initialize layer normalization module.
 
         Args:
-            features (int): _description_
-            eps (float, optional): _description_. Defaults to 1e-6.
+            features: Number of features in input.
+            eps: Small value to avoid division by zero.
         """
 
         # Constructor de la clase
@@ -194,13 +203,14 @@ class LayerNormalization(nn.Module):
         self.bias = nn.Parameter(torch.zeros(self.features))
 
     def forward(self, input_embedding: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Apply layer normalization to input embeddings.
 
         Args:
-            input_embedding (torch.Tensor): _description_
+            input_embedding: Batch of input embeddings.
 
         Returns:
-            torch.Tensor: _description_
+            Normalized embeddings.
         """
 
         # (B, sequence_length, d_model)
@@ -214,12 +224,13 @@ class LayerNormalization(nn.Module):
 
 class FeedForward(nn.Module):
     def __init__(self, d_model: int, d_ff: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initialize feed-forward neural network.
 
         Args:
-            d_model (int): _description_
-            d_ff (int): _description_
-            dropout_rate (float): _description_
+            d_model: Input and output feature dimensions.
+            d_ff: Hidden layer feature dimensions.
+            dropout_rate: Dropout rate applied on layers.
         """
 
         # Constructor de la clase
@@ -238,13 +249,14 @@ class FeedForward(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Process input tensor through feed-forward layers.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Batch of input tensors.
 
         Returns:
-            torch.Tensor: _description_
+            Output tensor after feed-forward processing.
         """
 
         # (B, sequence_length, d_model)
@@ -253,12 +265,13 @@ class FeedForward(nn.Module):
 
 class MultiHeadAttention(nn.Module):
     def __init__(self, d_model: int, h: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initialize multi-head attention module.
 
         Args:
-            d_model (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
+            d_model: Number of features in input.
+            h: Number of attention heads.
+            dropout_rate: Dropout rate applied on scores.
         """
 
         # Constructor de la clase
@@ -299,17 +312,18 @@ class MultiHeadAttention(nn.Module):
         mask: torch.Tensor | None = None,
         dropout: nn.Dropout | None = None,
     ):
-        """_summary_
+        """
+        Compute attention scores and output.
 
         Args:
-            k (torch.Tensor): _description_
-            q (torch.Tensor): _description_
-            v (torch.Tensor): _description_
-            mask (torch.Tensor | None, optional): _description_. Defaults to None.
-            dropout (nn.Dropout | None, optional): _description_. Defaults to None.
+            k: Key tensor.
+            q: Query tensor.
+            v: Value tensor.
+            mask: Mask tensor, optional.
+            dropout: Dropout layer, optional.
 
         Returns:
-                _type_: _description_
+            Tuple of attention output and scores.
         """
 
         # Primero realizamos el producto matricial con la transpuesta
@@ -346,16 +360,17 @@ class MultiHeadAttention(nn.Module):
         v: torch.Tensor,
         mask: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Process input tensors through multi-head attention.
 
         Args:
-            k (torch.Tensor): _description_
-            q (torch.Tensor): _description_
-            v (torch.Tensor): _description_
-            mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            k: Key tensor.
+            q: Query tensor.
+            v: Value tensor.
+            mask: Mask tensor, optional.
 
         Returns:
-                torch.Tensor: _description_
+            Output tensor after attention processing.
         """
 
         # k -> (Batch, seq_len, d_model) igual para el resto
@@ -402,11 +417,12 @@ class MultiHeadAttention(nn.Module):
 
 class ResidualConnection(nn.Module):
     def __init__(self, features: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initialize residual connection module.
 
         Args:
-            features (int): _description_
-            dropout_rate (float): _description_
+            features: Number of features in input.
+            dropout_rate: Dropout rate for sublayer output.
         """
 
         super().__init__()
@@ -415,14 +431,15 @@ class ResidualConnection(nn.Module):
         self.layer_norm = LayerNormalization(features=features)
 
     def forward(self, input_tensor: torch.Tensor, sublayer: nn.Module) -> torch.Tensor:
-        """_summary_
+        """
+        Apply residual connection to sublayer output.
 
         Args:
-            input_tensor (torch.Tensor): _description_
-            sublayer (nn.Module): _description_
+            input_tensor: Original input tensor.
+            sublayer: Sublayer module to apply.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor with residual connection applied.
         """
 
         return input_tensor + self.dropout(sublayer(self.layer_norm(input_tensor)))
@@ -430,13 +447,14 @@ class ResidualConnection(nn.Module):
 
 class EncoderBlock(nn.Module):
     def __init__(self, d_model: int, d_ff: int, h: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initialize encoder block module.
 
         Args:
-            d_model (int): _description_
-            d_ff (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
+            d_model: Number of features in input.
+            d_ff: Hidden layer feature dimensions.
+            h: Number of attention heads.
+            dropout_rate: Dropout rate for layers.
         """
 
         super().__init__()
@@ -464,14 +482,15 @@ class EncoderBlock(nn.Module):
     def forward(
         self, input_tensor: torch.Tensor, mask: torch.Tensor | None = None
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Process input tensor through encoder block.
 
         Args:
-            input_tensor (torch.Tensor): _description_
-            mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            input_tensor: Batch of input tensors.
+            mask: Mask tensor, optional.
 
         Returns:
-            torch.Tensor: _description_
+            Output tensor after encoder block processing.
         """
 
         # Utilizamos self-attention, por lo que k, q, v son del mismo vector de entrada
@@ -503,20 +522,21 @@ class VIT(nn.Module):
         num_classes: int,
         dropout_rate: float,
     ) -> None:
-        """_summary_
+        """
+        Initialize Vision Transformer (VIT).
 
         Args:
-            patch_size_height (int): _description_
-            patch_size_width (int): _description_
-            img_height (int): _description_
-            img_width (int): _description_
-            in_channels (int): _description_
-            num_encoders (int): _description_
-            d_model (int): _description_
-            d_ff (int): _description_
-            h (int): _description_
-            num_classes (int): _description_
-            dropout_rate (float): _description_
+            patch_size_height: Height of each patch.
+            patch_size_width: Width of each patch.
+            img_height: Height of input images.
+            img_width: Width of input images.
+            in_channels: Number of input channels.
+            num_encoders: Number of encoder blocks.
+            d_model: Dimension of the model.
+            d_ff: Dimension of feed-forward layers.
+            h: Number of attention heads.
+            num_classes: Number of output classes.
+            dropout_rate: Dropout rate for layers.
         """
 
         super().__init__()
@@ -587,6 +607,16 @@ class VIT(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
+        """
+        Process input tensor through VIT model.
+
+        Args:
+            input_tensor: Batch of input images.
+
+        Returns:
+            Classification output tensor.
+        """
+
         # Extraemos los patches
         input_patches = self.patch_layer(input_tensor)
 
@@ -630,8 +660,8 @@ if __name__ == "__main__":
         dropout_rate=0.1,
     )
 
-    # Tensor de ejemplo
     x = torch.randn(2, 3, 224, 224)
     output = model(x)
+
     print(f"Input shape: {x.shape}")
-    print(f"Output shape: {output.shape}")  # Debería ser (2, 1000)
+    print(f"Output shape: {output.shape}")

@@ -4,14 +4,14 @@ import torch
 
 def create_causal_mask(size: int) -> torch.Tensor:
     """
-    Crea una máscara causal (triangular inferior) para prevenir que el decoder
-    vea tokens futuros durante el entrenamiento.
+    Creates a causal mask to prevent the decoder from attending
+    to future tokens during training.
 
     Args:
-            size: Tamaño de la secuencia
+        size: Length of the sequence.
 
     Returns:
-            Máscara causal de tamaño (size, size)
+        Causal mask of shape (size, size).
     """
 
     return torch.tril(torch.ones(size, size))
@@ -19,14 +19,14 @@ def create_causal_mask(size: int) -> torch.Tensor:
 
 def create_padding_mask(seq: torch.Tensor, pad_token: int = 0) -> torch.Tensor:
     """
-    Crea una máscara para ignorar tokens de padding.
+    Creates a mask to ignore padding tokens in a sequence.
 
     Args:
-            seq: Secuencia de tokens (B, seq_len)
-            pad_token: Valor del token de padding
+        seq: Sequence of tokens, shape (B, seq_len).
+        pad_token: Padding token value.
 
     Returns:
-            Máscara de padding (B, 1, 1, seq_len)
+        Padding mask of shape (B, 1, 1, seq_len).
     """
 
     return (seq != pad_token).unsqueeze(1).unsqueeze(1)

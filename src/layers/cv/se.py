@@ -62,7 +62,6 @@ if __name__ == "__main__":
     model = SqueezeExcitation(channel_size=3, ratio=16)
 
     x = torch.randn(1, 3, 4, 4)
-    print(x)
-
     output_model = model(x)
+
     print(output_model)

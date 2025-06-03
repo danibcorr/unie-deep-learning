@@ -6,11 +6,13 @@ from torch.nn import functional as F
 
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels: int, hidden_size: int = 256) -> None:
-        """_summary_
+        """
+        Initializes a residual block that applies two convolutional
+        layers and ReLU activations.
 
         Args:
-            in_channels (int): _description_
-            hidden_size (int, optional): _description_. Defaults to 256.
+            in_channels: Number of input channels for the block.
+            hidden_size: Number of channels in the hidden layer.
         """
 
         super().__init__()
@@ -39,14 +41,17 @@ class ResidualBlock(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through the residual block.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: The input tensor to the block.
 
         Returns:
-            torch.Tensor: _description_
+            A tensor that is the sum of the input tensor and the
+            block's output.
         """
+
         return input_tensor + self.res_block(input_tensor)
 
 
@@ -59,15 +64,18 @@ class Encoder(nn.Module):
         kernel_size: int = 4,
         stride: int = 2,
     ) -> None:
-        """_summary_
+        """
+        Initializes an encoder with convolutional layers and residual
+        blocks.
 
         Args:
-            in_channels (int): _description_
-            num_residuals (int): _description_
-            hidden_size (int, optional): _description_. Defaults to 256.
-            kernel_size (int, optional): _description_. Defaults to 4.
-            stride (int, optional): _description_. Defaults to 2.
+            in_channels: Number of input channels to the encoder.
+            num_residuals: Number of residual blocks in the encoder.
+            hidden_size: Number of channels in hidden layers.
+            kernel_size: Size of the convolutional kernels.
+            stride: Stride of the convolutional kernels.
         """
+
         super().__init__()
 
         self.in_channels = in_channels
@@ -101,14 +109,17 @@ class Encoder(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through the encoder.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: The input tensor to the encoder.
 
         Returns:
-            torch.Tensor: _description_
+            A tensor processed by convolutional layers and residual
+            blocks.
         """
+
         encoder_output = self.model(input_tensor)
         for res_block in self.residual_blocks:
             encoder_output = res_block(encoder_output)
@@ -125,15 +136,19 @@ class Decoder(nn.Module):
         kernel_size: int = 4,
         stride: int = 2,
     ) -> None:
-        """_summary_
+        """
+        Initializes a decoder with residual blocks and transpose
+        convolutional layers.
 
         Args:
-            in_channels (int): _description_
-            num_residuals (int): _description_
-            out_channels (int, optional): _description_. Defaults to 3.
-            kernel_size (int, optional): _description_. Defaults to 4.
-            stride (int, optional): _description_. Defaults to 2.
+            in_channels: Number of input channels to the decoder.
+            num_residuals: Number of residual blocks in the decoder.
+            out_channels: Number of output channels, e.g., RGB.
+            hidden_size: Number of channels in hidden layers.
+            kernel_size: Size of the convolutional kernels.
+            stride: Stride of the convolutional kernels.
         """
+
         super().__init__()
 
         self.in_channels = in_channels
@@ -170,14 +185,17 @@ class Decoder(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through the decoder.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: The input tensor to the decoder.
 
         Returns:
-            torch.Tensor: _description_
+            A tensor processed by residual blocks and transpose
+            convolutional layers.
         """
+
         decoder_output = input_tensor
         for res_block in self.residual_blocks:
             decoder_output = res_block(decoder_output)
@@ -189,13 +207,15 @@ class VectorQuantizer(nn.Module):
     def __init__(
         self, size_discrete_space: int, size_embeddings: int, beta: float = 0.25
     ) -> None:
-        """_summary_
+        """
+        Initializes a vector quantizer with a learnable codebook.
 
         Args:
-            size_discrete_space (int): _description_
-            size_embeddings (int): _description_
-            beta (float, optional): _description_. Defaults to 0.25.
+            size_discrete_space: Number of discrete embeddings.
+            size_embeddings: Size of each embedding vector.
+            beta: Weighting factor for the commitment loss.
         """
+
         super().__init__()
 
         self.size_discrete_space = size_discrete_space
@@ -215,14 +235,17 @@ class VectorQuantizer(nn.Module):
     def forward(
         self, encoder_output: torch.Tensor
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
-        """_summary_
+        """
+        Quantizes the encoder output using the codebook.
 
         Args:
-            encoder_output (torch.Tensor): _description_
+            encoder_output: Tensor of encoder outputs.
 
         Returns:
-            tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]: _description_
+            A tuple containing VQ loss, quantized tensor, perplexity,
+            and encodings.
         """
+
         # Comentario de otras implementaciones: The channels are used as the space
         # in which to quantize.
         # Encoder output ->  (B, C, H, W) -> (0, 1, 2, 3) -> (0, 2, 3, 1) -> (0*2*3, 1)
@@ -293,17 +316,18 @@ class VQVAE(nn.Module):
         stride: int,
         beta: float = 0.25,
     ) -> None:
-        """_summary_
+        """
+        Initializes a VQ-VAE model with encoder, decoder, and quantizer.
 
         Args:
-            in_channels (int): _description_
-            size_discrete_space (int): _description_
-            size_embeddings (int): _description_
-            num_residuals (int): _description_
-            hidden_size (int): _description_
-            kernel_size (int): _description_
-            stride (int): _description_
-            beta (float, optional): _description_. Defaults to 0.25.
+            in_channels: Number of input channels for the model.
+            size_discrete_space: Number of discrete embeddings.
+            size_embeddings: Size of each embedding vector.
+            num_residuals: Number of residual blocks in encoder/decoder.
+            hidden_size: Number of channels in hidden layers.
+            kernel_size: Size of convolutional kernels.
+            stride: Stride of convolutional kernels.
+            beta: Weighting factor for the commitment loss.
         """
 
         super().__init__()
@@ -342,13 +366,15 @@ class VQVAE(nn.Module):
     def forward(
         self, input_tensor: torch.Tensor
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-        """_summary_
+        """
+        Forward pass through VQ-VAE model.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Input tensor to the model.
 
         Returns:
-            tuple[torch.Tensor, torch.Tensor, torch.Tensor]: _description_
+            A tuple containing VQ loss, reconstructed tensor,
+            and perplexity.
         """
 
         encoder_output = self.encoder(input_tensor)

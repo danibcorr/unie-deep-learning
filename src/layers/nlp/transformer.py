@@ -8,12 +8,15 @@ from torch.nn import functional as F
 
 
 class InputEmbedding(nn.Module):
+    """Embeds input tokens into vectors of dimension d_model."""
+
     def __init__(self, d_model: int, vocab_size: int) -> None:
-        """_summary_
+        """
+        Initializes input embedding layer.
 
         Args:
-            d_model (int): _description_
-            vocab_size (int): _description_
+            d_model: Dimensionality of the embedding vectors.
+            vocab_size: Size of the vocabulary.
         """
 
         # Constructor de la clase
@@ -32,13 +35,14 @@ class InputEmbedding(nn.Module):
         self.embedding = nn.Embedding(num_embeddings=vocab_size, embedding_dim=d_model)
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through the embedding layer.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Input tensor of token indices.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor of embedded input scaled by sqrt(d_model).
         """
 
         # Paper: In the embedding layers, we multiply those weights by sqrt(d_model)
@@ -47,13 +51,16 @@ class InputEmbedding(nn.Module):
 
 
 class PositionalEncoding(nn.Module):
+    """Adds positional encoding to input embeddings."""
+
     def __init__(self, d_model: int, sequence_length: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initializes positional encoding layer.
 
         Args:
-            d_model (int): _description_
-            sequence_length (int): _description_
-            dropout_rate (float): _description_
+            d_model: Dimensionality of the embedding vectors.
+            sequence_length: Maximum sequence length.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         # Constructor de la clase
@@ -102,13 +109,14 @@ class PositionalEncoding(nn.Module):
         self.register_buffer(name="pe_matrix", tensor=pe_matrix)
 
     def forward(self, input_embedding: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass to add positional encoding.
 
         Args:
-            input_embedding (torch.Tensor): _description_
+            input_embedding: Tensor of input embeddings.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor of embeddings with added positional encoding.
         """
 
         # (B, ..., d_model) -> (B, sequence_length, d_model)
@@ -120,12 +128,15 @@ class PositionalEncoding(nn.Module):
 
 
 class LayerNormalization(nn.Module):
+    """Applies layer normalization to input embeddings."""
+
     def __init__(self, features: int, eps: float = 1e-6) -> None:
-        """_summary_
+        """
+        Initializes layer normalization.
 
         Args:
-            features (int): _description_
-            eps (float, optional): _description_. Defaults to 1e-6.
+            features: Number of features in the input.
+            eps: Small constant for numerical stability.
         """
 
         # Constructor de la clase
@@ -141,13 +152,14 @@ class LayerNormalization(nn.Module):
         self.bias = nn.Parameter(torch.zeros(self.features))
 
     def forward(self, input_embedding: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass for layer normalization.
 
         Args:
-            input_embedding (torch.Tensor): _description_
+            input_embedding: Tensor of input embeddings.
 
         Returns:
-            torch.Tensor: _description_
+            Normalized tensor.
         """
 
         # (B, sequence_length, d_model)
@@ -160,13 +172,16 @@ class LayerNormalization(nn.Module):
 
 
 class FeedForward(nn.Module):
+    """Feed-forward neural network layer."""
+
     def __init__(self, d_model: int, d_ff: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initializes feed-forward network.
 
         Args:
-            d_model (int): _description_
-            d_ff (int): _description_
-            dropout_rate (float): _description_
+            d_model: Dimensionality of model embeddings.
+            d_ff: Dimensionality of feed-forward layer.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         # Constructor de la clase
@@ -185,13 +200,14 @@ class FeedForward(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through feed-forward network.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Tensor of input embeddings.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor processed by feed-forward network.
         """
 
         # (B, sequence_length, d_model)
@@ -199,13 +215,16 @@ class FeedForward(nn.Module):
 
 
 class MultiHeadAttention(nn.Module):
+    """Applies multi-head attention mechanism."""
+
     def __init__(self, d_model: int, h: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initializes multi-head attention layer.
 
         Args:
-            d_model (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
+            d_model: Dimensionality of model embeddings.
+            h: Number of attention heads.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         # Constructor de la clase
@@ -246,17 +265,18 @@ class MultiHeadAttention(nn.Module):
         mask: torch.Tensor | None = None,
         dropout: nn.Dropout | None = None,
     ):
-        """_summary_
+        """
+        Computes scaled dot-product attention.
 
         Args:
-            k (torch.Tensor): _description_
-            q (torch.Tensor): _description_
-            v (torch.Tensor): _description_
-            mask (torch.Tensor | None, optional): _description_. Defaults to None.
-            dropout (nn.Dropout | None, optional): _description_. Defaults to None.
+            k: Key tensor.
+            q: Query tensor.
+            v: Value tensor.
+            mask: Optional mask tensor.
+            dropout: Optional dropout layer.
 
         Returns:
-                _type_: _description_
+            Tuple of attention output and scores.
         """
 
         # Primero realizamos el producto matricial con la transpuesta
@@ -293,16 +313,17 @@ class MultiHeadAttention(nn.Module):
         v: torch.Tensor,
         mask: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through multi-head attention.
 
         Args:
-            k (torch.Tensor): _description_
-            q (torch.Tensor): _description_
-            v (torch.Tensor): _description_
-            mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            k: Key tensor.
+            q: Query tensor.
+            v: Value tensor.
+            mask: Optional mask tensor.
 
         Returns:
-                torch.Tensor: _description_
+            Tensor after attention and concatenation.
         """
 
         # k -> (Batch, seq_len, d_model) igual para el resto
@@ -348,12 +369,15 @@ class MultiHeadAttention(nn.Module):
 
 
 class ResidualConnection(nn.Module):
+    """Applies residual connection around a sublayer."""
+
     def __init__(self, features: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initializes residual connection layer.
 
         Args:
-            features (int): _description_
-            dropout_rate (float): _description_
+            features: Number of features in the input.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         super().__init__()
@@ -362,28 +386,32 @@ class ResidualConnection(nn.Module):
         self.layer_norm = LayerNormalization(features=features)
 
     def forward(self, input_tensor: torch.Tensor, sublayer: nn.Module) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass using residual connection.
 
         Args:
-            input_tensor (torch.Tensor): _description_
-            sublayer (nn.Module): _description_
+            input_tensor: Input tensor to the residual layer.
+            sublayer: Sublayer to apply within the residual connection.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor with residual connection applied.
         """
 
         return input_tensor + self.dropout(sublayer(self.layer_norm(input_tensor)))
 
 
 class EncoderBlock(nn.Module):
+    """Encoder block with attention and feed-forward layers."""
+
     def __init__(self, d_model: int, d_ff: int, h: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initializes encoder block.
 
         Args:
-            d_model (int): _description_
-            d_ff (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
+            d_model: Dimensionality of model embeddings.
+            d_ff: Dimensionality of feed-forward layer.
+            h: Number of attention heads.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         super().__init__()
@@ -411,14 +439,15 @@ class EncoderBlock(nn.Module):
     def forward(
         self, input_tensor: torch.Tensor, mask: torch.Tensor | None = None
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through encoder block.
 
         Args:
-            input_tensor (torch.Tensor): _description_
-            mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            input_tensor: Input tensor to the encoder block.
+            mask: Optional mask tensor.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor after processing by the encoder block.
         """
 
         # Utilizamos self-attention, por lo que k, q, v son del mismo vector de entrada
@@ -436,14 +465,17 @@ class EncoderBlock(nn.Module):
 
 
 class DecoderBlock(nn.Module):
+    """Decoder block with masked attention, cross-attention, and feed-forward layers."""
+
     def __init__(self, d_model: int, d_ff: int, h: int, dropout_rate: float) -> None:
-        """_summary_
+        """
+        Initializes decoder block.
 
         Args:
-            d_model (int): _description_
-            d_ff (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
+            d_model: Dimensionality of model embeddings.
+            d_ff: Dimensionality of feed-forward layer.
+            h: Number of attention heads.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         super().__init__()
@@ -480,15 +512,17 @@ class DecoderBlock(nn.Module):
         src_mask: torch.Tensor | None = None,  # Máscara para el encoder (padding)
         tgt_mask: torch.Tensor | None = None,  # Máscara causal para el decoder
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through decoder block.
 
         Args:
-            decoder_input (torch.Tensor): _description_
-            encoder_output (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            decoder_input: Input tensor to the decoder block.
+            encoder_output: Output tensor from the encoder.
+            src_mask: Optional source mask tensor.
+            tgt_mask: Optional target mask tensor.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor after processing by the decoder block.
         """
 
         # Utilizamos self-attention, por lo que k, q, v son del mismo vector de entrada
@@ -516,14 +550,15 @@ class DecoderBlock(nn.Module):
 
 
 class ProjectionLayer(nn.Module):
-    # Esto permite convertir de d_model al vocab_size de nuevo
+    """Converts d_model dimensions back to vocab_size."""
 
     def __init__(self, d_model: int, vocab_size: int) -> None:
-        """_summary_
+        """
+        Initializes projection layer.
 
         Args:
-            d_model (int): _description_
-            vocab_size (int): _description_
+            d_model: Dimensionality of model embeddings.
+            vocab_size: Size of the vocabulary.
         """
 
         super().__init__()
@@ -534,19 +569,22 @@ class ProjectionLayer(nn.Module):
         self.projection_layer = nn.Linear(in_features=d_model, out_features=vocab_size)
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through projection layer.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Input tensor to the projection layer.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor with projected dimensions.
         """
 
         return self.projection_layer(input_tensor)
 
 
 class Transformer(nn.Module):
+    """Transformer model with encoder and decoder blocks."""
+
     def __init__(
         self,
         src_vocab_size: int,
@@ -560,19 +598,20 @@ class Transformer(nn.Module):
         h: int,
         dropout_rate: float,
     ) -> None:
-        """_summary_
+        """
+        Initializes transformer model.
 
         Args:
-            src_vocab_size (int): _description_
-            tgt_vocab_size (int): _description_
-            src_seq_len (int): _description_
-            tgt_seq_len (int): _description_
-            num_encoders (int): _description_
-            num_decoders (int): _description_
-            d_model (int): _description_
-            d_ff (int): _description_
-            h (int): _description_
-            dropout_rate (float): _description_
+            src_vocab_size: Size of source vocabulary.
+            tgt_vocab_size: Size of target vocabulary.
+            src_seq_len: Maximum source sequence length.
+            tgt_seq_len: Maximum target sequence length.
+            num_encoders: Number of encoder blocks.
+            num_decoders: Number of decoder blocks.
+            d_model: Dimensionality of model embeddings.
+            d_ff: Dimensionality of feed-forward layer.
+            h: Number of attention heads.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         super().__init__()
@@ -641,14 +680,15 @@ class Transformer(nn.Module):
     def encode(
         self, encoder_input: torch.Tensor, src_mask: torch.Tensor | None = None
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Encodes source input tensor using encoder blocks.
 
         Args:
-            encoder_input (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            encoder_input: Input tensor to the encoder.
+            src_mask: Optional source mask tensor.
 
         Returns:
-            torch.Tensor: _description_
+            Encoded tensor.
         """
 
         # Aplicar embedding y positional encoding
@@ -668,16 +708,17 @@ class Transformer(nn.Module):
         src_mask: torch.Tensor | None = None,
         tgt_mask: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Decodes target input tensor using decoder blocks.
 
         Args:
-            decoder_input (torch.Tensor): _description_
-            encoder_output (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
-            tgt_mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            decoder_input: Input tensor to the decoder.
+            encoder_output: Output tensor from the encoder.
+            src_mask: Optional source mask tensor.
+            tgt_mask: Optional target mask tensor.
 
         Returns:
-            torch.Tensor: _description_
+            Decoded tensor.
         """
 
         # Aplicar embedding y positional encoding
@@ -702,16 +743,18 @@ class Transformer(nn.Module):
         src_mask: torch.Tensor | None = None,
         tgt_mask: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        """_summary_
+        """
+        Processes input and target sequences through the encoder
+        and decoder, applying optional source and target masks.
 
         Args:
-            src (torch.Tensor): _description_
-            tgt (torch.Tensor): _description_
-            src_mask (torch.Tensor | None, optional): _description_. Defaults to None.
-            tgt_mask (torch.Tensor | None, optional): _description_. Defaults to None.
+            src: Input sequence tensor.
+            tgt: Target sequence tensor.
+            src_mask: Optional mask for the input sequence.
+            tgt_mask: Optional mask for the target sequence.
 
         Returns:
-            torch.Tensor: _description_
+            Tensor containing the final output after projection.
         """
 
         # Encoder

@@ -8,12 +8,13 @@ class ExpertModel(nn.Module):
     """Modelo experto individual para MoE"""
 
     def __init__(self, input_dim: int, output_dim: int, hidden_dim: int) -> None:
-        """_summary_
+        """
+        Initializes an expert model with a simple feed-forward network.
 
         Args:
-            input_dim (int): _description_
-            output_dim (int): _description_
-            hidden_dim (int): _description_
+            input_dim: Dimensionality of the input data.
+            output_dim: Dimensionality of the output data.
+            hidden_dim: Dimensionality of the hidden layer.
         """
 
         super().__init__()
@@ -29,30 +30,32 @@ class ExpertModel(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through the expert model.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Input tensor to the model.
 
         Returns:
-            torch.Tensor: _description_
+            The model's output tensor.
         """
 
         return self.model(input_tensor)
 
 
 class Gating(nn.Module):
-    """Gating para seleccionar expertos"""
+    """Gating mechanism to select experts."""
 
     def __init__(
         self, input_dim: int, num_experts: int, dropout_rate: float = 0.2
     ) -> None:
-        """_summary_
+        """
+        Initializes a gating network for expert selection.
 
         Args:
-            input_dim (int): _description_
-            num_experts (int): _description_
-            dropout_rate (float, optional): _description_. Defaults to 0.2.
+            input_dim: Dimensionality of the input data.
+            num_experts: Number of experts to select from.
+            dropout_rate: Rate of dropout for regularization.
         """
 
         super().__init__()
@@ -75,13 +78,14 @@ class Gating(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through the gating network.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Input tensor to the network.
 
         Returns:
-            torch.Tensor: _description_
+            Softmax probabilities for expert selection.
         """
 
         return F.softmax(self.model(input_tensor), dim=-1)
@@ -96,12 +100,13 @@ class MoE(nn.Module):
         input_dim: int,
         dropout_rate: float = 0.2,
     ) -> None:
-        """_summary_
+        """
+        Initializes a mixture of experts with gating.
 
         Args:
-            trained_experts (list[nn.Module]): _description_
-            input_dim (int): _description_
-            dropout_rate (float, optional): _description_. Defaults to 0.2.
+            trained_experts: List of trained expert models.
+            input_dim: Dimensionality of the input data.
+            dropout_rate: Rate of dropout in the gating network.
         """
 
         super().__init__()
@@ -118,13 +123,14 @@ class MoE(nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        """_summary_
+        """
+        Forward pass through the mixture of experts.
 
         Args:
-            input_tensor (torch.Tensor): _description_
+            input_tensor: Input tensor to the model.
 
         Returns:
-            torch.Tensor: _description_
+            Weighted sum of expert outputs.
         """
 
         # Obtenemos los pesos del selector

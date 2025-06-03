@@ -84,7 +84,6 @@ if __name__ == "__main__":
     model = APS()
 
     x = torch.randn(1, 3, 4, 4)
-    print(x)
-
     output_model = model(x)
+
     print(output_model)
