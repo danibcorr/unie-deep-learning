@@ -10,6 +10,7 @@ dist/
 .venv/
 .mypy_cache
 .pytest_cache
+notebooks/*
 
 # Ignore IDE-specific files and directories
 .vscode/
