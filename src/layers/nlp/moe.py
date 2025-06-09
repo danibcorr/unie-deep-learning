@@ -5,7 +5,9 @@ from torch.nn import functional as F
 
 
 class ExpertModel(nn.Module):
-    """Modelo experto individual para MoE"""
+    """
+    Modelo experto individual para MoE
+    """
 
     def __init__(self, input_dim: int, output_dim: int, hidden_dim: int) -> None:
         """
@@ -44,7 +46,9 @@ class ExpertModel(nn.Module):
 
 
 class Gating(nn.Module):
-    """Gating mechanism to select experts."""
+    """
+    Gating mechanism to select experts.
+    """
 
     def __init__(
         self, input_dim: int, num_experts: int, dropout_rate: float = 0.2
@@ -92,7 +96,9 @@ class Gating(nn.Module):
 
 
 class MoE(nn.Module):
-    """Mixture of Experts"""
+    """
+    Mixture of Experts
+    """
 
     def __init__(
         self,
