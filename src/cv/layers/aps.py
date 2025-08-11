@@ -10,7 +10,7 @@ import torch
 from torch import nn
 
 
-class APS(nn.Module):
+class AdaptivePolyphaseSampling(nn.Module):
     def __init__(
         self,
         norm: int | float | Literal["fro", "nuc", "inf", "-inf"] | None = 2,

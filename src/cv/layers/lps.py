@@ -2,15 +2,13 @@
 Este clase implementa la capa APS de este paper: https://arxiv.org/abs/2210.08001
 """
 
-# Standard libraries
-
 # 3pps
 import torch
 from torch import nn
 from torch.nn import functional as F
 
 
-class LPS(nn.Module):
+class LearnablePolyphaseSampling(nn.Module):
     def __init__(self, channel_size: int, hidden_size: int) -> None:
         """
         Initializes the model with specified channel and hidden sizes.

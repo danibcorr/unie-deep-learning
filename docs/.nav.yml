@@ -1,9 +1,13 @@
 nav:
   - Home: index.md
-  - Layers:
-    - Computer Vision: layers/cv.md
-    - Natural Language Processing: layers/nlp.md
-    - Generative: layers/generative.md
+  - Computer Vision:
+      - Layers: repo/cv/layers.md
+      - Models: repo/cv/models.md
+  - Generative:
+      - Models: repo/generative/models.md
+  - Natural Language Processing:
+      - Layers: repo/nlp/layers.md
+      - Utilities: repo/nlp/utils.md
 
 sort:
   ignore_case: true
