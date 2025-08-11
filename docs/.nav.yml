@@ -1,0 +1,10 @@
+nav:
+  - Home: index.md
+  - Layers:
+    - Computer Vision: layers/cv.md
+    - Natural Language Processing: layers/nlp.md
+    - Generative: layers/generative.md
+
+sort:
+  ignore_case: true
+  type: alphabetical
