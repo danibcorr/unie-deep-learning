@@ -1,8 +1,8 @@
-site_name: Papers with code
-site_description: "Papers with code in PyTorch"
+site_name: Papers & Algorithms with Code
+site_description: "Papers & Algorithms with code in PyTorch and Python"
 repo_name: "papers-with-code"
 repo_url: "https://github.com/danibcorr/papers-with-code"
-site_url:
+site_url: "https://danibcorr.github.io/papers-with-code/"
 
 theme:
   name: "material"
@@ -10,15 +10,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: deep purple
-      accent: deep purple
+      primary: black
+      accent: black
       toggle:
         icon: material/weather-night
         name: "Switch to dark mode"
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: deep purple
-      accent: deep purple
+      primary: black
+      accent: black
       toggle:
         icon: material/weather-sunny
         name: "Switch to light mode"
@@ -29,7 +29,6 @@ theme:
     - content.tooltips
     - announce.dismiss
     - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.preview
@@ -40,7 +39,7 @@ theme:
     - navigation.indexes
     - search.suggest
     - toc.follow
-    - header.autohide
+    - toc.integrate
   icon:
     repo: fontawesome/brands/github
 
@@ -106,3 +105,6 @@ extra:
   social:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/danibcorr/
+  version:
+    provider: mike
+    default: latest

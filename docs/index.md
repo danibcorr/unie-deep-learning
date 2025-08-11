@@ -1,3 +1,4 @@
-# Papers with code
+# Papers & Algorithms with Code
 
-Papers with code in PyTorch
+Implementations of algorithms, utilities, and code snippets I find interesting, along
+with PyTorch and Python versions of research papers.
