@@ -1,15 +1,13 @@
+# 3pps
+import cv2
 import numpy as np
 import tensorflow as tf
-import cv2
 from tensorflow.keras.layers import Layer
-from tensorflow.keras.layers import Flatten, Dense
-from tensorflow.keras.models import Sequential
 
 
 class RieszLayer(Layer):
-
     def __init__(self, output_channels, **kwargs):
-        super(RieszLayer, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.output_channels = output_channels
 
     def build(self, input_shape):
@@ -20,13 +18,17 @@ class RieszLayer(Layer):
             trainable=True,
             name="riesz_weights",
         )
-        super(RieszLayer, self).build(input_shape)
+        super().build(input_shape)
 
     @tf.function
     def riesz_transform(self, input_image, H, W):
         # Recompute frequency grids based on current input dimensions
-        n1 = tf.cast(tf.signal.fftshift(tf.linspace(-H // 2, H // 2 - 1, H)), tf.float32)
-        n2 = tf.cast(tf.signal.fftshift(tf.linspace(-W // 2, W // 2 - 1, W)), tf.float32)
+        n1 = tf.cast(
+            tf.signal.fftshift(tf.linspace(-H // 2, H // 2 - 1, H)), tf.float32
+        )
+        n2 = tf.cast(
+            tf.signal.fftshift(tf.linspace(-W // 2, W // 2 - 1, W)), tf.float32
+        )
 
         n1 = tf.reshape(n1, (-1, 1))  # Column vector
         n2 = tf.reshape(n2, (1, -1))  # Row vector
@@ -41,18 +43,36 @@ class RieszLayer(Layer):
         I_hat = tf.signal.fft2d(tf.cast(input_image, tf.complex64))
 
         # First-order Riesz transforms
-        I1 = tf.math.real(tf.signal.ifft2d(I_hat * tf.complex(real_part_R1, imag_part_R1)))
-        I2 = tf.math.real(tf.signal.ifft2d(I_hat * tf.complex(real_part_R2, imag_part_R2)))
+        I1 = tf.math.real(
+            tf.signal.ifft2d(I_hat * tf.complex(real_part_R1, imag_part_R1))
+        )
+        I2 = tf.math.real(
+            tf.signal.ifft2d(I_hat * tf.complex(real_part_R2, imag_part_R2))
+        )
 
         # Second-order Riesz transforms
-        I_20 = tf.math.real(tf.signal.ifft2d(I_hat * tf.complex(real_part_R1**2, imag_part_R1**2)))
-        I_02 = tf.math.real(tf.signal.ifft2d(I_hat * tf.complex(real_part_R2**2, imag_part_R2**2)))
-        I_11 = tf.math.real(tf.signal.ifft2d(I_hat * tf.complex(real_part_R1 * real_part_R2, imag_part_R1 * imag_part_R2)))
+        I_20 = tf.math.real(
+            tf.signal.ifft2d(I_hat * tf.complex(real_part_R1**2, imag_part_R1**2))
+        )
+        I_02 = tf.math.real(
+            tf.signal.ifft2d(I_hat * tf.complex(real_part_R2**2, imag_part_R2**2))
+        )
+        I_11 = tf.math.real(
+            tf.signal.ifft2d(
+                I_hat
+                * tf.complex(real_part_R1 * real_part_R2, imag_part_R1 * imag_part_R2)
+            )
+        )
 
         return tf.stack([I1, I2, I_20, I_11, I_02], axis=-1)
 
     def call(self, inputs):
-        batch_size, H, W, input_channels = tf.shape(inputs)[0], tf.shape(inputs)[1], tf.shape(inputs)[2], tf.shape(inputs)[3]
+        batch_size, H, W, input_channels = (
+            tf.shape(inputs)[0],
+            tf.shape(inputs)[1],
+            tf.shape(inputs)[2],
+            tf.shape(inputs)[3],
+        )
 
         # Reshape for channel-wise processing
         inputs_reshaped = tf.reshape(inputs, (-1, H, W))  # Combine batch and channels
@@ -61,18 +81,25 @@ class RieszLayer(Layer):
         riesz_transformed = tf.map_fn(
             lambda x: self.riesz_transform(x, H, W),
             inputs_reshaped,
-            fn_output_signature=tf.float32
+            fn_output_signature=tf.float32,
         )
 
         # Reshape back to original batch format with Riesz feature dimension
-        riesz_features = tf.reshape(riesz_transformed, (batch_size, H, W, 5 * input_channels))
+        riesz_features = tf.reshape(
+            riesz_transformed, (batch_size, H, W, 5 * input_channels)
+        )
 
         # Linear combination using weights
-        riesz_features_flat = tf.reshape(riesz_features, (batch_size * H * W, 5 * input_channels))
+        riesz_features_flat = tf.reshape(
+            riesz_features, (batch_size * H * W, 5 * input_channels)
+        )
         combined_features_flat = tf.matmul(riesz_features_flat, self.riesz_weights)
-        combined_features = tf.reshape(combined_features_flat, (batch_size, H, W, self.output_channels))
+        combined_features = tf.reshape(
+            combined_features_flat, (batch_size, H, W, self.output_channels)
+        )
 
         return combined_features
+
 
 # Verify functionality on a sample input with variable sizes
 sample_input_small = np.random.rand(1, 14, 14, 1).astype(np.float32)
@@ -89,10 +116,11 @@ print("Transformed output shape (large input):", transformed_output_large.shape)
 
 # Helper function to resize the dataset
 def resize_dataset(images, target_size):
-    resized_images = np.array([
-        cv2.resize(img, target_size, interpolation=cv2.INTER_AREA) for img in images
-    ])
+    resized_images = np.array(
+        [cv2.resize(img, target_size, interpolation=cv2.INTER_AREA) for img in images]
+    )
     return np.expand_dims(resized_images, axis=-1)
+
 
 # Load and preprocess MNIST dataset
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
@@ -105,6 +133,7 @@ x_test = np.expand_dims(x_test, axis=-1)
 # Resize images for evaluation at different scales
 x_test_small = resize_dataset(x_test[..., 0], (14, 14))
 x_test_large = resize_dataset(x_test[..., 0], (56, 56))
+
 
 # Define the neural network model using the functional API
 def create_riesz_cnn(input_shape=(None, None, 1)):
@@ -132,23 +161,25 @@ def create_riesz_cnn(input_shape=(None, None, 1)):
 
     return tf.keras.Model(inputs=input_layer, outputs=output)
 
+
 # Create the Riesz-based CNN model
 model = create_riesz_cnn(input_shape=(None, None, 1))
 
 # Compile the model with AdamW optimizer
 model.compile(
-    optimizer=tf.keras.optimizers.AdamW(learning_rate=1e-3), 
-    loss="sparse_categorical_crossentropy", 
-    metrics=["accuracy"]
+    optimizer=tf.keras.optimizers.AdamW(learning_rate=1e-3),
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"],
 )
 model.summary()  # Corrected typo from 'suummary' to 'summary'
 
 # Train the model with the learning rate scheduler
 history = model.fit(
-    x_train, y_train, 
-    shuffle=True, 
-    validation_split=0.2, 
-    batch_size=64, 
+    x_train,
+    y_train,
+    shuffle=True,
+    validation_split=0.2,
+    batch_size=64,
     epochs=10,
 )
 

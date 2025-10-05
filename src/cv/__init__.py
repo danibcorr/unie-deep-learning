@@ -6,4 +6,10 @@ from src.cv.layers.vit import VisionTransformer
 from src.cv.models.vq_vae import VQVAE
 
 # Define all names to be imported
-__all__: list[str] = ["AdaptivePolyphaseSampling", "LearnablePolyphaseSampling", "SqueezeExcitation", "VisionTransformer", "VQVAE"]
+__all__: list[str] = [
+    "AdaptivePolyphaseSampling",
+    "LearnablePolyphaseSampling",
+    "SqueezeExcitation",
+    "VisionTransformer",
+    "VQVAE",
+]

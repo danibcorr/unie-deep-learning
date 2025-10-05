@@ -81,7 +81,7 @@ class AdaptivePolyphaseSampling(nn.Module):
 
 
 if __name__ == "__main__":
-    model = APS()
+    model = AdaptivePolyphaseSampling()
 
     x = torch.randn(1, 3, 4, 4)
     output_model = model(x)

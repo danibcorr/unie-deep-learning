@@ -95,7 +95,7 @@ class LearnablePolyphaseSampling(nn.Module):
 
 
 if __name__ == "__main__":
-    model = LPS(channel_size=3, hidden_size=64)
+    model = LearnablePolyphaseSampling(channel_size=3, hidden_size=64)
 
     x = torch.randn(1, 3, 4, 4)
     output_model = model(x)
