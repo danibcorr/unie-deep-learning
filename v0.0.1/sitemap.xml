@@ -2,18 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/index.html</loc>
-         <lastmod>2025-10-01</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/layers/cv.html</loc>
-         <lastmod>2025-10-01</lastmod>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Computer%20Vision/lenet.html</loc>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/layers/generative.html</loc>
-         <lastmod>2025-10-01</lastmod>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Mathematics/activation_functions.html</loc>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/layers/nlp.html</loc>
-         <lastmod>2025-10-01</lastmod>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Mathematics/cosine_similarity.html</loc>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Mathematics/gradient_descent.html</loc>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Time%20Series/gramian_angular_field.html</loc>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/cv/layers.html</loc>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/cv/models.html</loc>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/generative/models.html</loc>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/nlp/layers.html</loc>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/nlp/utils.html</loc>
+         <lastmod>2025-10-06</lastmod>
     </url>
 </urlset>
