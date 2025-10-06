@@ -507,7 +507,7 @@ class EncoderBlock(nn.Module):
         return input_tensor
 
 
-class VIT(nn.Module):
+class VisionTransformer(nn.Module):
     def __init__(
         self,
         patch_size_height: int,
@@ -646,7 +646,7 @@ class VIT(nn.Module):
 
 
 if __name__ == "__main__":
-    model = VIT(
+    model = VisionTransformer(
         patch_size_height=16,
         patch_size_width=16,
         img_height=224,

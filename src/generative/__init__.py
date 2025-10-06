@@ -1,5 +1,5 @@
 # Own modules
-from src.layers.generative.gan import GAN
+from src.generative.models.gan import GAN
 
 # Define all names to be imported
 __all__: list[str] = [

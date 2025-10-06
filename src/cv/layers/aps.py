@@ -1,23 +1,25 @@
 """
-Este clase implementa la capa APS de este paper: https://arxiv.org/abs/2210.08001
+Este clase implementa la capa APS de este paper: https://arxiv.org/abs/2011.14214
 """
 
 # Standard libraries
+from typing import Literal
 
 # 3pps
 import torch
 from torch import nn
-from torch.nn import functional as F
 
 
-class LPS(nn.Module):
-    def __init__(self, channel_size: int, hidden_size: int) -> None:
+class AdaptivePolyphaseSampling(nn.Module):
+    def __init__(
+        self,
+        norm: int | float | Literal["fro", "nuc", "inf", "-inf"] | None = 2,
+    ) -> None:
         """
-        Initializes the model with specified channel and hidden sizes.
+        Initializes the class with normalization option.
 
         Args:
-            channel_size: Number of input channels for the Conv2D layer.
-            hidden_size: Number of hidden units for the Conv2D layer.
+            norm: Normalization type or value, defaults to 2.
         """
 
         # Constructor de la clase
@@ -25,40 +27,20 @@ class LPS(nn.Module):
 
         # Definimos los parámetros de la clase
         self._stride = 2
-
-        # Definimos el modelo único para cada componente
-        self.conv_model = nn.Sequential(
-            nn.Conv2d(
-                in_channels=channel_size,
-                out_channels=hidden_size,
-                kernel_size=3,
-                stride=1,
-                padding=1,
-            ),
-            nn.ReLU(),
-            nn.Conv2d(
-                in_channels=hidden_size,
-                out_channels=hidden_size,
-                kernel_size=3,
-                stride=1,
-                padding=1,
-            ),
-            nn.Flatten(),
-            nn.AdaptiveAvgPool2d(1),
-        )
+        self.norm = norm
 
     def forward(
         self, input_tensor: torch.Tensor, return_index: bool = False
     ) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor]:
         """
-        Processes input to extract dominant polyphase component.
+        Processes input tensor to extract dominant polyphase component.
 
         Args:
             input_tensor: Tensor with shape (B, C, H, W).
             return_index: If True, returns index of dominant component.
 
         Returns:
-            Tensor of dominant component, optionally with index.
+            Output tensor, optionally with index if return_index is True.
         """
 
         # Tenemos a la entrada un tensor de (B, C, H, W)
@@ -73,14 +55,16 @@ class LPS(nn.Module):
         # Combinamos las componentes en un solo tensor (B, P, C, H, W)
         polyphase_combined = torch.stack((poly_a, poly_b, poly_c, poly_d), dim=1)
 
-        # Utilizamos el modelo basado en convoluciones por cada componente
-        _logits = []
-        for polyphase in range(polyphase_combined.size()[1]):
-            _logits.append(self.conv_model(polyphase_combined[:, polyphase, ...]))
-        logits = torch.squeeze(torch.stack(_logits))
+        # Extraemos las dimensiones
+        b, p, _, _, _ = polyphase_combined.size()
+
+        # Combinamos los valores de los canales, altura y anchura del tensor
+        polyphase_combined_reshaped = torch.reshape(polyphase_combined, (b, p, -1))
 
         # Aplicamos la norma a la última dimensión
-        polyphase_norms = F.gumbel_softmax(logits, tau=1, hard=False)
+        polyphase_norms = torch.linalg.vector_norm(
+            input=polyphase_combined_reshaped, ord=self.norm, dim=(-1)
+        )
 
         # Seleccionamos el componente polifásico de mayor orden
         polyphase_max_norm = torch.argmax(polyphase_norms)
@@ -97,7 +81,7 @@ class LPS(nn.Module):
 
 
 if __name__ == "__main__":
-    model = LPS(channel_size=3, hidden_size=64)
+    model = AdaptivePolyphaseSampling()
 
     x = torch.randn(1, 3, 4, 4)
     output_model = model(x)
