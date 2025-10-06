@@ -8,7 +8,10 @@ nav:
   - Natural Language Processing:
       - Layers: repo/nlp/layers.md
       - Utilities: repo/nlp/utils.md
-
+  - Notebooks:
+        - notebooks/Computer Vision/
+        - notebooks/Mathematics/
+        - notebooks/Time Series/ 
 sort:
   ignore_case: true
   type: alphabetical
