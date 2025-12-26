@@ -1,20 +1,13 @@
-site_name: Papers & Algorithms with Code
-site_description: "Papers & Algorithms with code in PyTorch and Python"
-repo_name: "papers-with-code"
-repo_url: "https://github.com/danibcorr/papers-with-code"
-site_url: "https://danibcorr.github.io/papers-with-code/"
+site_name: Deep Learning Course
+site_description: "Deep Learning Course"
+repo_name: "unie-deep-learning"
+repo_url: "https://github.com/danibcorr/unie-deep-learning"
+site_url: "https://danibcorr.github.io/unie-deep-learning/"
 
 theme:
   name: "material"
   language: en
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: black
-      accent: black
-      toggle:
-        icon: material/weather-night
-        name: "Switch to dark mode"
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
@@ -22,6 +15,13 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: "Switch to light mode"
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: black
+      toggle:
+        icon: material/weather-night
+        name: "Switch to dark mode"
   features:
     - content.tabs.link
     - content.code.annotate

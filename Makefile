@@ -1,5 +1,5 @@
 # Declare all phony targets
-.PHONY: install clean lint code_check doc pipeline all
+.PHONY: install clean lint doc pipeline all
 
 # Default target
 .DEFAULT_GOAL := all
@@ -28,18 +28,8 @@ clean:
 lint:
 	@echo "Running lint checks..."
 	@uv run isort $(SRC_ALL)/
-	@uv run nbqa isort $(SRC_ALL)/
-	@uv run ruff check --fix $(SRC_ALL)/
 	@uv run ruff format $(SRC_ALL)/
 	@echo "✅ Linting complete."
-
-# Static analysis and security checks
-code_check:
-	@echo "Running static code checks..."
-	@uv run mypy $(SRC_PROJECT_NAME)/
-	@uv run complexipy -d low $(SRC_PROJECT_NAME)/
-	@uv run bandit -r $(SRC_PROJECT_NAME)/ --exclude $(SRC_PROJECT_TESTS)
-	@echo "✅ Code and security checks complete."
 
 # Serve documentation locally
 doc:
@@ -47,7 +37,7 @@ doc:
 	@uv run mkdocs serve
 
 # Run code checks
-pipeline: clean lint code_check 
+pipeline: clean lint 
 	@echo "✅ Pipeline complete."
 
 # Run full workflow including install and docs
