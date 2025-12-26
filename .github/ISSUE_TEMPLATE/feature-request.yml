@@ -1,0 +1,45 @@
+name: "Feature Proposal"
+description: "Suggest a new feature for unie-deep-learning."
+labels: ["Feature request"]
+
+body:
+  - type: textarea
+    id: proposal-summary
+    attributes:
+      label: "Proposal Summary"
+      description:
+        "Describe your proposal clearly. Include relevant information if available."
+      placeholder:
+        "Example:\n- Type: Example\n- Feature: New feature to support\n- Code:
+        https://github.com/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: "Motivation"
+      description:
+        "Explain why this proposal is valuable. Is it solving a limitation or adding a
+        unique advantage? If it's related to another GitHub issue, please link it."
+      placeholder: "Example:\n- Problem: ...\n- Benefit: ..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: open-source-status
+    attributes:
+      label: "Open Source Status"
+      description: "This helps assess implementation feasibility."
+      options:
+        - label: "Implementation code is available"
+
+  - type: textarea
+    id: useful-links
+    attributes:
+      label: "Useful Links & References"
+      description:
+        "Provide additional resources or relevant repositories. Mention authors with
+        @username if known."
+      placeholder:
+        "- Implementation repo: ...\n- Paper link: ...\n- Author: @gh-username"

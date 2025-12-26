@@ -5,8 +5,6 @@
 .DEFAULT_GOAL := all
 
 # Variables
-SRC_PROJECT_NAME ?= src
-SRC_PROJECT_TESTS ?= tests
 SRC_ALL ?= .
 
 # Install project dependencies
