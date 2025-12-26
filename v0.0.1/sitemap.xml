@@ -1,47 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/index.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/index.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Computer%20Vision/lenet.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_1_image_processing.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Mathematics/activation_functions.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_2_convolutional_layer.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Mathematics/cosine_similarity.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_3_lenet.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Mathematics/gradient_descent.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_4_vgg.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/notebooks/Time%20Series/gramian_angular_field.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_5_resnet.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/cv/layers.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_6_autoencoders.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/cv/models.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_7_transfer_learning.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/generative/models.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_8_knowledge_distillation.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/nlp/layers.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_9_intepretability.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
     <url>
-         <loc>https://danibcorr.github.io/papers-with-code/v0.0.1/repo/nlp/utils.html</loc>
-         <lastmod>2025-10-07</lastmod>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Computer%20Vision/step_x_normalization.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Graphs/step_1_gnns.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Graphs/step_2_pytorch_geometric.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_1_data_structures.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_2_linear_algebra_calculus.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_3_mathematics_concepts.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_4_artificial_neuron.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_5_gradient_descent.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_6_deep_neural_networks.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_7_regularization_techniques.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_8_optimizers.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Mathematics/step_9_metrics.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Sequential%20Models/step_1_rnns.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Sequential%20Models/step_2_lstm.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Sequential%20Models/step_3_autoencoders.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Sequential%20Models/step_4_transformers.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Sequential%20Models/step_5_moe.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Sequential%20Models/step_6_open_models.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/notebooks/Time%20Series/step_x_other_techniques.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/repo/cv/layers.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/repo/cv/models.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/repo/generative/models.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/repo/nlp/layers.html</loc>
+         <lastmod>2025-12-26</lastmod>
+    </url>
+    <url>
+         <loc>https://danibcorr.github.io/unie-deep-learning/v0.0.1/repo/nlp/utils.html</loc>
+         <lastmod>2025-12-26</lastmod>
     </url>
 </urlset>
