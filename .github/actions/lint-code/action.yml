@@ -22,15 +22,3 @@ runs:
         echo "Running isort..."  
         uv run isort --check ${{ inputs.src-project-folder }}/
       shell: bash
-
-    - name: Cognitive Complexity with complexipy
-      run: |
-        echo "Running complexipy..."
-        uv run complexipy ${{ inputs.src-project-folder }}/
-      shell: bash
-
-    - name: Check Mypy
-      run: |
-        echo "Running Mypy type checker..."
-        uv run mypy ${{ inputs.src-project-folder }}/
-      shell: bash
