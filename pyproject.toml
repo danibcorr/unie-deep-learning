@@ -22,7 +22,7 @@ dependencies = [
     "matplotlib==3.10.8",
     "numpy==1.26.4; sys_platform == 'darwin'",
     "numpy==2.3.3; sys_platform != 'darwin'",
-    "scikit-learn==1.7.2",
+    "scikit-learn==1.8.0",
     "seaborn==0.13.2",
     "torch",
     "torchaudio",
