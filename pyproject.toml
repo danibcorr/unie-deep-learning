@@ -40,7 +40,7 @@ required-environments = [
 
 [dependency-groups]
 pipeline = [
-    "ruff==0.14.0",
+    "ruff==0.14.10",
     "isort==7.0.0"
 ]
 documentation = [
