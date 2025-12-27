@@ -39,7 +39,6 @@ theme:
     - navigation.indexes
     - search.suggest
     - toc.follow
-    - toc.integrate
   icon:
     repo: fontawesome/brands/github
 

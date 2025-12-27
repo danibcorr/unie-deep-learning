@@ -1,1 +1,0 @@
-::: src.generative.models.gan

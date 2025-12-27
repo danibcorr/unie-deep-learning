@@ -18,21 +18,24 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 dependencies = [
-    "fastapi[standard]>=0.121.1",
+    "fastapi[standard]==0.121.1",
     "matplotlib==3.10.8",
     "numpy==2.3.3",
     "scikit-learn==1.8.0",
     "seaborn==0.13.2",
-    "torch",
-    "torchaudio",
-    "torchinfo>=1.8.0",
-    "torchvision",
+    "torch==2.2.2",
+    "torchaudio==2.2.2",
+    "torchinfo==1.8.0",
+    "torchvision==0.17.2",
     "tqdm==4.67.1",
 ]
 
 [tool.uv]
 default-groups = "all"
 cache-keys = [{ file = "pyproject.toml" }, { git = { commit = true } }]
+required-environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
 
 [dependency-groups]
 pipeline = [
