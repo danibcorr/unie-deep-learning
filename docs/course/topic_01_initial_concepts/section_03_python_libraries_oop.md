@@ -1,4 +1,4 @@
-# Python Libraries and Software Design
+# Libraries and Software Design
 
 The development of libraries in Python is based on design principles that seek to
 maximize clarity, reusability, and long-term code maintenance. In this context,
