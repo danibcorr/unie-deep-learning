@@ -25,8 +25,8 @@ clean:
 # Check code formatting and linting
 lint:
 	@echo "Running lint checks..."
+	@uv run black $(SRC_ALL)/
 	@uv run isort $(SRC_ALL)/
-	@uv run ruff format $(SRC_ALL)/
 	@echo "✅ Linting complete."
 
 # Serve documentation locally

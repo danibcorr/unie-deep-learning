@@ -94,7 +94,9 @@ plugins:
       toc_depth: 0
       exclude:
         - index.md
-  - mkdocs-jupyter
+  - mkdocs-jupyter:
+      execute: true
+      allow_errors: false
   - awesome-nav
 
 extra:

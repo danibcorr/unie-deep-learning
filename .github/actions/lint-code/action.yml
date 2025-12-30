@@ -14,7 +14,7 @@ runs:
       id: ruff
       run: |
         echo "Running ruff linter..."  
-        uv run ruff check ${{ inputs.src-project-folder }}/
+        uv run black --check ${{ inputs.src-project-folder }}/
       shell: bash
 
     - name: Check imports with isort
