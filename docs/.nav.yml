@@ -1,12 +1,14 @@
 nav:
   - Home: index.md
   - Course:
-      - course/Mathematics/
-      - course/Computer Vision/
-      - course/Sequential Models/
-      - course/Generative/
-      - course/Graphs/
-      - course/Time Series/
+      - Environments: course/topic_01_environments/
+      - Mathematics: course/topic_02_mathematics/
+      - Computer Vision: course/topic_03_computer_vision/
+      - Sequential Models: course/topic_04_sequential_models/
+      - Graph Models: course/topic_05_graphs_models/
+  - Other Topics:
+      - Generative Models: other_topics/topic_01_generative_models
+      - Time Series Models: other_topics/topic_02_time_series_models
 sort:
   ignore_case: true
   type: alphabetical
