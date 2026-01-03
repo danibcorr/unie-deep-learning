@@ -10,15 +10,14 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Lint with ruff
-      id: ruff
-      run: |
-        echo "Running ruff linter..."  
-        uv run black --check ${{ inputs.src-project-folder }}/
+    - name: Check Format with Black
       shell: bash
+      run: |
+        echo "Running Black..."  
+        uv run black --check "${{ inputs.src-project-folder }}/"
 
-    - name: Check imports with isort
+    - name: Check Imports with isort
+      shell: bash
       run: |
         echo "Running isort..."  
-        uv run isort --check ${{ inputs.src-project-folder }}/
-      shell: bash
+        uv run isort --check "${{ inputs.src-project-folder }}/"

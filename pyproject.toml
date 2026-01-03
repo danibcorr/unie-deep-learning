@@ -21,6 +21,7 @@ dependencies = [
     "fastapi[standard]==0.128.0",
     "ipykernel==6.31.0",
     "matplotlib==3.10.8",
+    "nbqa==1.9.1",
     "numpy==2.4.0",
     "scikit-learn==1.8.0",
     "seaborn==0.13.2",
@@ -63,15 +64,6 @@ exclude = '''
   .venv
 )/
 '''
-
-[tool.mypy]
-check_untyped_defs = true
-ignore_missing_imports = true
-exclude = [
-    "^(build|dist|venv)",
-    ".venv/"
-]
-cache_dir = "/dev/null"
 
 [tool.isort]
 profile = "black"

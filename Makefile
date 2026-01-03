@@ -25,8 +25,9 @@ clean:
 # Check code formatting and linting
 lint:
 	@echo "Running lint checks..."
-	@uv run black $(SRC_ALL)/
-	@uv run isort $(SRC_ALL)/
+	@uv run black $(SRC_ALL)
+	@uv run isort $(SRC_ALL)
+	@uv run nbqa isort $(SRC_ALL)
 	@echo "✅ Linting complete."
 
 # Serve documentation locally
@@ -35,7 +36,7 @@ doc:
 	@uv run mkdocs serve
 
 # Run code checks
-pipeline: clean lint 
+pipeline: clean lint
 	@echo "✅ Pipeline complete."
 
 # Run full workflow including install and docs
