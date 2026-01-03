@@ -1,5 +1,5 @@
 # Declare all phony targets
-.PHONY: install clean lint doc pipeline all
+.PHONY: install clean notebooks-clean lint doc pipeline all
 
 # Default target
 .DEFAULT_GOAL := all
@@ -22,6 +22,12 @@ clean:
 	@find . -type f \( -name '*.pyc' -o -name '*.pyo' \) -delete
 	@echo "✅ Clean complete."
 
+# Clean notebooks output
+notebooks-clean:
+	@echo "Cleaning notebooks output..."
+	@find . -name '*.ipynb' -exec uv run nbstripout {} +
+	@echo "✅ Clean complete."
+
 # Check code formatting and linting
 lint:
 	@echo "Running lint checks..."
@@ -36,7 +42,7 @@ doc:
 	@uv run mkdocs serve
 
 # Run code checks
-pipeline: clean lint
+pipeline: clean notebooks-clean lint
 	@echo "✅ Pipeline complete."
 
 # Run full workflow including install and docs
