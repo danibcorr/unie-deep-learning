@@ -7,9 +7,6 @@ nav:
       - Computer Vision: course/topic_04_computer_vision/
       - Sequential Models: course/topic_05_sequential_models/
       - Graph Models: course/topic_06_graphs_models/
-  - Other Topics:
-      - Generative Models: other_topics/topic_01_generative_models/
-      - Time Series Models: other_topics/topic_02_time_series_models/
 sort:
   ignore_case: true
   type: alphabetical

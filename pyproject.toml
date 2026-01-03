@@ -23,6 +23,7 @@ dependencies = [
     "matplotlib==3.10.8",
     "nbqa==1.9.1",
     "numpy==2.4.0",
+    "opencv-python==4.11.0.86",
     "scikit-learn==1.8.0",
     "seaborn==0.13.2",
     "torch==2.9.1",
