@@ -109,3 +109,6 @@ extra:
   version:
     provider: mike
     default: latest
+
+extra_css:
+  - assets/css/custom.css
