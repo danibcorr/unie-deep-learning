@@ -1,12 +1,12 @@
 nav:
   - Home: index.md
   - Course:
-      - course/Mathematics/
-      - course/Computer Vision/
-      - course/Sequential Models/
-      - course/Generative/
-      - course/Graphs/
-      - course/Time Series/
+      - Initial Concepts: course/topic_01_initial_concepts/
+      - Mathematics: course/topic_02_mathematics/
+      - Applications: course/topic_03_applications/
+      - Computer Vision: course/topic_04_computer_vision/
+      - Sequential Models: course/topic_05_sequential_models/
+      - Graph Models: course/topic_06_graphs_models/
 sort:
   ignore_case: true
   type: alphabetical

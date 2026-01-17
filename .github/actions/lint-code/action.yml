@@ -10,15 +10,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Lint with ruff
-      id: ruff
-      run: |
-        echo "Running ruff linter..."  
-        uv run ruff check ${{ inputs.src-project-folder }}/
+    - name: Lint with Ruff
       shell: bash
+      run: uv run ruff check ${{ inputs.src-project-folder }}/
 
-    - name: Check imports with isort
-      run: |
-        echo "Running isort..."  
-        uv run isort --check ${{ inputs.src-project-folder }}/
+    - name: Check Imports with isort
       shell: bash
+      run: uv run isort --check ${{ inputs.src-project-folder }}/

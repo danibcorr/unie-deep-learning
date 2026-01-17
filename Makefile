@@ -1,20 +1,20 @@
-# Declare all phony targets
-.PHONY: install clean lint doc pipeline all
+.PHONY: setup \
+		clean-cache-temp-files \
+		lint \
+		doc  \
+		pipeline pre-commit all
 
-# Default target
 .DEFAULT_GOAL := all
 
-# Variables
-SRC_ALL ?= .
+SOURCE_PATH ?= docs/course
 
-# Install project dependencies
-install:
+setup:
 	@echo "Installing dependencies..."
 	@uv sync --all-extras
+	@uv run pre-commit install
 	@echo "✅ Dependencies installed."
 
-# Clean cache and temporary files
-clean:
+clean-cache-temp-files:
 	@echo "Cleaning cache and temporary files..."
 	@find . -type d -name __pycache__ -exec rm -rf {} +
 	@find . -type d -name .pytest_cache -exec rm -rf {} +
@@ -22,22 +22,22 @@ clean:
 	@find . -type f \( -name '*.pyc' -o -name '*.pyo' \) -delete
 	@echo "✅ Clean complete."
 
-# Check code formatting and linting
 lint:
 	@echo "Running lint checks..."
-	@uv run isort $(SRC_ALL)/
-	@uv run ruff format $(SRC_ALL)/
+	@uv run isort $(SOURCE_PATH)
+	@uv run ruff check --fix $(SOURCE_PATH)
+	@uv run ruff format $(SOURCE_PATH)
 	@echo "✅ Linting complete."
 
-# Serve documentation locally
 doc:
 	@echo "Serving documentation..."
 	@uv run mkdocs serve
 
-# Run code checks
-pipeline: clean lint 
+pipeline: clean-cache-temp-files lint
 	@echo "✅ Pipeline complete."
 
-# Run full workflow including install and docs
-all: install pipeline doc
+pre-commit: clean-cache-temp-files lint
+	@echo "✅ Pipeline pre-commit complete."
+
+all: setup pipeline doc
 	@echo "✅ All tasks complete."
