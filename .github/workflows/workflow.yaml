@@ -7,13 +7,13 @@ on:
     branches: [main, dev]
 
 env:
-  SRC_PROJECT_FOLDER: "src"
+  PROJECT_PATH: "docs/course"
   TEST_PATH: "tests"
   SRC_PYTHON_VERSION: "3.11"
 
 jobs:
   setup-lint-test:
-    name: Setup, Lint, Test, and Security Check
+    name: Setup and Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +30,7 @@ jobs:
       - name: Lint Code
         uses: ./.github/actions/lint-code
         with:
-          src-project-folder: ${{ env.SRC_PROJECT_FOLDER }}
+          src-project-folder: ${{ env.PROJECT_PATH }}
 
   build-deploy-docs:
     if: github.ref == 'refs/heads/main'
