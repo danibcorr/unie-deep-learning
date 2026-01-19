@@ -22,29 +22,29 @@ accessible to non-specialist readers.
 
 The main topics covered in the course are:
 
-- **Topic 1: Initial Concepts**: Introduction to neural networks, differences between
+- **Topic 1, Initial Concepts**: Introduction to neural networks, differences between
   traditional machine learning and deep learning, and main components of a deep learning
   workflow: Datasets, models, loss functions, optimization algorithms, and evaluation
   metrics.
 
-- **Topic 2: Mathematics**: Mathematical foundations for deep learning, including linear
+- **Topic 2, Mathematics**: Mathematical foundations for deep learning, including linear
   algebra, calculus, and basic probability and statistics, with emphasis on their
   application to neural network training and tensor computation in PyTorch.
 
-- **Topic 3: Applications**: End-to-end examples of deep learning applied to tasks such
+- **Topic 3, Applications**: End-to-end examples of deep learning applied to tasks such
   as classification, regression, and recommendation, including model definition, choice
   of loss functions and optimizers, and implementation of training and evaluation loops
   in PyTorch.
 
-- **Topic 4: Computer Vision**: Deep learning methods for image processing and computer
+- **Topic 4, Computer Vision**: Deep learning methods for image processing and computer
   vision, including convolutional neural networks, image classification, object
   detection, segmentation, and transfer learning using pre-trained models.
 
-- **Topic 5: Sequential Models**: Models for sequential data, such as text and
+- **Topic 5, Sequential Models**: Models for sequential data, such as text and
   time-ordered signals, covering recurrent architectures (RNNs, LSTMs, GRUs) and, where
   appropriate, attention mechanisms and transformer-based models.
 
-- **Topic 6: Graph Models**: Introduction to graph neural networks and related
+- **Topic 6, Graph Models**: Introduction to graph neural networks and related
   architectures for node classification, link prediction, and graph classification, using
   graph-structured data.
 
