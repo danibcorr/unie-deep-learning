@@ -1,0 +1,1404 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Deep Learning Course" name="description"/>
+<link href="https://danibcorr.github.io/unie-deep-learning/v0.0.1/course/topic_01_initial_concepts/section_02_data_structures.html" rel="canonical"/>
+<link href="section_01_environment.html" rel="prev"/>
+<link href="section_03_python_libraries_oop.html" rel="next"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>Data Structures - Deep Learning Course</title>
+<link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../assets/css/custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="black" data-md-color-primary="black" data-md-color-scheme="slate" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#data-structures">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Deep Learning Course" class="md-header__button md-logo" data-md-component="logo" href="../../index.html" title="Deep Learning Course">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Deep Learning Course
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Data Structures
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="black" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="black" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="black" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/danibcorr/unie-deep-learning" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    unie-deep-learning
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../index.html">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="index.html">
+          
+  
+  
+    
+  
+  Course
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Deep Learning Course" class="md-nav__button md-logo" data-md-component="logo" href="../../index.html" title="Deep Learning Course">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Deep Learning Course
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/danibcorr/unie-deep-learning" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</div>
+<div class="md-source__repository">
+    unie-deep-learning
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../index.html">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Course
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Course
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2_1" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="index.html">
+<span class="md-ellipsis">
+    
+  
+    Initial Concepts
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_2_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Initial Concepts
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="section_01_environment.html">
+<span class="md-ellipsis">
+    
+  
+    Setup Environment
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Data Structures
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="section_02_data_structures.html">
+<span class="md-ellipsis">
+    
+  
+    Data Structures
+  
+
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lists">
+<span class="md-ellipsis">
+      
+        Lists
+      
+    </span>
+</a>
+<nav aria-label="Lists" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#main-list-methods">
+<span class="md-ellipsis">
+      
+        Main List Methods
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#for-loops-and-list-comprehension">
+<span class="md-ellipsis">
+      
+        for Loops and List Comprehension
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nested-lists-and-matrix-representation">
+<span class="md-ellipsis">
+      
+        Nested Lists and Matrix Representation
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tuples">
+<span class="md-ellipsis">
+      
+        Tuples
+      
+    </span>
+</a>
+<nav aria-label="Tuples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tuple-methods">
+<span class="md-ellipsis">
+      
+        Tuple Methods
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sets">
+<span class="md-ellipsis">
+      
+        Sets
+      
+    </span>
+</a>
+<nav aria-label="Sets" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-methods">
+<span class="md-ellipsis">
+      
+        Set Methods
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dictionaries">
+<span class="md-ellipsis">
+      
+        Dictionaries
+      
+    </span>
+</a>
+<nav aria-label="Dictionaries" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#main-dictionary-methods">
+<span class="md-ellipsis">
+      
+        Main Dictionary Methods
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#practical-cases-and-compound-structures">
+<span class="md-ellipsis">
+      
+        Practical Cases and Compound Structures
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tensors">
+<span class="md-ellipsis">
+      
+        Tensors
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="section_03_python_libraries_oop.html">
+<span class="md-ellipsis">
+    
+  
+    Libraries and Software Design
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_2" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../topic_02_mathematics/index.html">
+<span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_02_mathematics/section_01_data_structures.html">
+<span class="md-ellipsis">
+    
+  
+    Data Structures and Tensors in PyTorch
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_02_mathematics/section_02_basic_maths.html">
+<span class="md-ellipsis">
+    
+  
+    Basic Mathematics and Automatic Differentiation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_02_mathematics/section_03_mathematical_concepts.html">
+<span class="md-ellipsis">
+    
+  
+    Applied Mathematical Concepts
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_03_applications/section_01_artificial_neuron.html">
+<span class="md-ellipsis">
+    
+  
+    Artificial Neuron and Linear Models
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_03_applications/section_02_gradient_descent.html">
+<span class="md-ellipsis">
+    
+  
+    Gradient Descent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_03_applications/section_03_regularization_techniques.html">
+<span class="md-ellipsis">
+    
+  
+    Regularization Techniques
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_03_applications/section_04_optimizers.html">
+<span class="md-ellipsis">
+    
+  
+    Optimizers
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_4" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../topic_04_computer_vision/index.html">
+<span class="md-ellipsis">
+    
+  
+    Computer Vision
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_2_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Vision
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_01_image_processing.html">
+<span class="md-ellipsis">
+    
+  
+    Image Processing
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_02_normalization.html">
+<span class="md-ellipsis">
+    
+  
+    Normalization
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_03_convolutional_layer.html">
+<span class="md-ellipsis">
+    
+  
+    Convolutional Layers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_04_lenet.html">
+<span class="md-ellipsis">
+    
+  
+    LeNet
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_05_vgg.html">
+<span class="md-ellipsis">
+    
+  
+    VGG
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_06_resnet.html">
+<span class="md-ellipsis">
+    
+  
+    ResNet
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_07_transfer_learning.html">
+<span class="md-ellipsis">
+    
+  
+    Transfer Learning
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_08_autoencoders.html">
+<span class="md-ellipsis">
+    
+  
+    Autoencoders
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_09_attention.html">
+<span class="md-ellipsis">
+    
+  
+    Attention Mechanisms in Convolutional Neural Networks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/section_10_interpretability.html">
+<span class="md-ellipsis">
+    
+  
+    Interpretability in Convolutional Neural Networks
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_5" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../topic_05_sequential_models/index.html">
+<span class="md-ellipsis">
+    
+  
+    Sequential Models
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_2_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Sequential Models
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_01_tokenization.html">
+<span class="md-ellipsis">
+    
+  
+    Tokenization
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_02_rnn.html">
+<span class="md-ellipsis">
+    
+  
+    Recurrent Neural Networks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_03_lstm.html">
+<span class="md-ellipsis">
+    
+  
+    Long Short-Term Memory (LSTM)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_04_autoencoders.html">
+<span class="md-ellipsis">
+    
+  
+    Autoencoders
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_05_transformers.html">
+<span class="md-ellipsis">
+    
+  
+    Transformers
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_06_moe.html">
+<span class="md-ellipsis">
+    
+  
+    Mixture of Experts
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_6" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../topic_06_graphs_models/index.html">
+<span class="md-ellipsis">
+    
+  
+    Graph Models
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="false" aria-labelledby="__nav_2_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Graph Models
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_06_graphs_models/section_01_gnns.html">
+<span class="md-ellipsis">
+    
+  
+    Graph Neural Networks
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_06_graphs_models/section_02_pytorch_geometric.html">
+<span class="md-ellipsis">
+    
+  
+    PyTorch Geometric
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lists">
+<span class="md-ellipsis">
+      
+        Lists
+      
+    </span>
+</a>
+<nav aria-label="Lists" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#main-list-methods">
+<span class="md-ellipsis">
+      
+        Main List Methods
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#for-loops-and-list-comprehension">
+<span class="md-ellipsis">
+      
+        for Loops and List Comprehension
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nested-lists-and-matrix-representation">
+<span class="md-ellipsis">
+      
+        Nested Lists and Matrix Representation
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tuples">
+<span class="md-ellipsis">
+      
+        Tuples
+      
+    </span>
+</a>
+<nav aria-label="Tuples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tuple-methods">
+<span class="md-ellipsis">
+      
+        Tuple Methods
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sets">
+<span class="md-ellipsis">
+      
+        Sets
+      
+    </span>
+</a>
+<nav aria-label="Sets" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-methods">
+<span class="md-ellipsis">
+      
+        Set Methods
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dictionaries">
+<span class="md-ellipsis">
+      
+        Dictionaries
+      
+    </span>
+</a>
+<nav aria-label="Dictionaries" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#main-dictionary-methods">
+<span class="md-ellipsis">
+      
+        Main Dictionary Methods
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#practical-cases-and-compound-structures">
+<span class="md-ellipsis">
+      
+        Practical Cases and Compound Structures
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tensors">
+<span class="md-ellipsis">
+      
+        Tensors
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="data-structures"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.</span> Data Structures</h1>
+<p>In Python, data structures constitute an essential element for storing, organizing, and
+manipulating information efficiently. In the context of Deep Learning and scientific
+computing, a solid understanding of these structures is key, as they serve as the
+conceptual foundation upon which more complex abstractions are built, such as tensors,
+datasets, and batches. Below are the most common data structures in Python, explained
+progressively and with a practical approach.</p>
+<h2 id="lists"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.1</span> Lists</h2>
+<p><strong>Lists</strong> are data structures that allow storing ordered and mutable sequences of
+elements. Unlike other languages, lists in Python can contain elements of different types
+and their size is dynamic, meaning they can grow or shrink during program execution.
+Indexing starts at zero, and negative indices allow accessing elements starting from the
+end of the list.</p>
+<p>A list is defined using brackets and separating elements with commas:</p>
+<div class="highlight"><pre><span></span><code><span class="n">friends_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Jorge"</span><span class="p">,</span> <span class="s2">"Fran"</span><span class="p">,</span> <span class="s2">"Ricardo"</span><span class="p">]</span>
+</code></pre></div>
+<p>It is also possible to initialize an empty list, which is useful when you want to build
+it progressively:</p>
+<div class="highlight"><pre><span></span><code><span class="n">lista</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div>
+<p>Access to elements is done through indices, and Python offers flexible syntax for
+selecting individual elements or complete subsets:</p>
+<div class="highlight"><pre><span></span><code><span class="n">friends_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Jorge"</span><span class="p">,</span> <span class="s2">"Fran"</span><span class="p">,</span> <span class="s2">"Ricardo"</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The first friend is </span><span class="si">{</span><span class="n">friends_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"My hometown friend is </span><span class="si">{</span><span class="n">friends_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">friends_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">friends_list</span><span class="p">)</span>
+</code></pre></div>
+<p>This indexing and slicing capability makes lists especially suitable for representing
+data sequences, such as sets of examples or intermediate calculation results.</p>
+<h3 id="main-list-methods"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.1.1</span> Main List Methods</h3>
+<p>Lists have a wide set of methods that allow modifying their content and structure. Among
+the most relevant are the following:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list[index] = x</code></td>
+<td>Changes the element at the specified index to <code>x</code>.</td>
+</tr>
+<tr>
+<td><code>list.extend(x)</code></td>
+<td>Adds the elements of <code>x</code> to the end of the list.</td>
+</tr>
+<tr>
+<td><code>list.append(x)</code></td>
+<td>Adds a single element <code>x</code> to the end of the list.</td>
+</tr>
+<tr>
+<td><code>list.insert(index, x)</code></td>
+<td>Inserts <code>x</code> at the indicated position.</td>
+</tr>
+<tr>
+<td><code>list.remove(x)</code></td>
+<td>Removes the first occurrence of <code>x</code>.</td>
+</tr>
+<tr>
+<td><code>list.clear()</code></td>
+<td>Completely empties the list.</td>
+</tr>
+<tr>
+<td><code>list.pop()</code></td>
+<td>Removes and returns the last element or the one indicated by index.</td>
+</tr>
+<tr>
+<td><code>list.index(x)</code></td>
+<td>Returns the index of the first occurrence of <code>x</code>.</td>
+</tr>
+<tr>
+<td><code>list.count(x)</code></td>
+<td>Counts how many times <code>x</code> appears.</td>
+</tr>
+<tr>
+<td><code>list.sort()</code></td>
+<td>Sorts the list in ascending order.</td>
+</tr>
+<tr>
+<td><code>list.reverse()</code></td>
+<td>Reverses the order of elements.</td>
+</tr>
+<tr>
+<td><code>list2 = list1.copy()</code></td>
+<td>Creates a shallow copy of the list.</td>
+</tr>
+<tr>
+<td><code>max(list)</code></td>
+<td>Returns the maximum value.</td>
+</tr>
+<tr>
+<td><code>min(list)</code></td>
+<td>Returns the minimum value.</td>
+</tr>
+<tr>
+<td><code>del list[x]</code></td>
+<td>Removes the element at index <code>x</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="for-loops-and-list-comprehension"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.1.2</span> <code>for</code> Loops and List Comprehension</h3>
+<p>Iteration over lists using <code>for</code> loops is a common operation in Python. Additionally, the
+language offers <strong>list comprehension</strong>, a concise and expressive syntax for generating
+new lists from existing sequences.</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">letter</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s2">"Hello"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+
+<span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">number</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+
+<span class="n">celsius</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">]</span>
+<span class="n">fahrenheit</span> <span class="o">=</span> <span class="p">[((</span><span class="mi">9</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">+</span> <span class="mi">32</span><span class="p">)</span> <span class="k">for</span> <span class="n">temp</span> <span class="ow">in</span> <span class="n">celsius</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fahrenheit</span><span class="p">)</span>
+
+<span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">number</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</code></pre></div>
+<p>This mechanism is especially useful in data science and machine learning, where it is
+common to apply repetitive transformations over collections of values.</p>
+<h3 id="nested-lists-and-matrix-representation"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.1.3</span> Nested Lists and Matrix Representation</h3>
+<p>Lists can contain other lists, which allows representing multidimensional structures like
+matrices or data tables:</p>
+<div class="highlight"><pre><span></span><code><span class="n">number_grid</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">number_grid</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+<p>Although in real projects matrices are usually managed with libraries like NumPy or
+PyTorch, this model helps understand the underlying logic of multidimensional data.</p>
+<h2 id="tuples"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.2</span> Tuples</h2>
+<p><strong>Tuples</strong> are ordered and immutable sequences. Once created, their elements cannot be
+modified, which makes them a suitable option when you want to guarantee data integrity.
+Additionally, they are usually more memory-efficient and slightly faster than lists.</p>
+<div class="highlight"><pre><span></span><code><span class="n">coordinates</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Complete coordinate </span><span class="si">{</span><span class="n">coordinates</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First coordinate </span><span class="si">{</span><span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> and second coordinate </span><span class="si">{</span><span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<p>Tuples are frequently used to group related values, for example, coordinates, parameters,
+or multiple results from a function.</p>
+<h3 id="tuple-methods"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.2.1</span> Tuple Methods</h3>
+<p>Although they are immutable, tuples offer some basic methods:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tuple.count(x)</code></td>
+<td>Returns the number of times <code>x</code> appears.</td>
+</tr>
+<tr>
+<td><code>tuple.index(x)</code></td>
+<td>Returns the index of the first occurrence of <code>x</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sets"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.3</span> Sets</h2>
+<p><strong>Sets</strong> are unordered collections of unique elements. They do not allow duplicates,
+which makes them especially useful for removing repetitions or for performing set theory
+operations like unions and intersections.</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">my_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">my_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">my_new_set</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">}</span>
+</code></pre></div>
+<h3 id="set-methods"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.3.1</span> Set Methods</h3>
+<p>Sets provide efficient operations for comparing collections:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s.add(x)</code></td>
+<td>Adds an element to the set.</td>
+</tr>
+<tr>
+<td><code>s.clear()</code></td>
+<td>Removes all elements.</td>
+</tr>
+<tr>
+<td><code>sc = s.copy()</code></td>
+<td>Creates a copy of the set.</td>
+</tr>
+<tr>
+<td><code>s1.difference(s2)</code></td>
+<td>Returns the elements of <code>s1</code> that are not in <code>s2</code>.</td>
+</tr>
+<tr>
+<td><code>s1.difference_update(s2)</code></td>
+<td>Removes from <code>s1</code> the elements present in <code>s2</code>.</td>
+</tr>
+<tr>
+<td><code>s.discard(elem)</code></td>
+<td>Removes <code>elem</code> without error if it doesn't exist.</td>
+</tr>
+<tr>
+<td><code>s1.intersection(s2)</code></td>
+<td>Returns the common elements.</td>
+</tr>
+<tr>
+<td><code>s1.issubset(s2)</code></td>
+<td>Checks if <code>s1</code> is a subset of <code>s2</code>.</td>
+</tr>
+<tr>
+<td><code>s1.union(s2)</code></td>
+<td>Returns the union of both sets.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dictionaries"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.4</span> Dictionaries</h2>
+<p><strong>Dictionaries</strong> store information in <strong>key-value</strong> pairs, where each key is unique. They
+are mutable and allow very efficient data access, making them one of the most used
+structures in Python.</p>
+<div class="highlight"><pre><span></span><code><span class="n">month_conversion</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Jan"</span><span class="p">:</span> <span class="s2">"January"</span><span class="p">,</span>
+    <span class="s2">"Feb"</span><span class="p">:</span> <span class="s2">"February"</span><span class="p">,</span>
+    <span class="s2">"Mar"</span><span class="p">:</span> <span class="s2">"March"</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">month_conversion</span><span class="p">[</span><span class="s2">"Jan"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">month_conversion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Jan"</span><span class="p">))</span>
+
+<span class="n">key</span> <span class="o">=</span> <span class="s2">"Daniel"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">month_conversion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"The key </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> is not in the dictionary"</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="main-dictionary-methods"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.4.1</span> Main Dictionary Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dictionary.items()</code></td>
+<td>Returns the key-value pairs.</td>
+</tr>
+<tr>
+<td><code>dictionary.keys()</code></td>
+<td>Returns the keys.</td>
+</tr>
+<tr>
+<td><code>dictionary.values()</code></td>
+<td>Returns the values.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="practical-cases-and-compound-structures"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.4.2</span> Practical Cases and Compound Structures</h3>
+<p>Dictionaries can be nested or combined with lists to represent complex structures:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"k3"</span><span class="p">:</span> <span class="p">{</span><span class="s1">'insideKey'</span><span class="p">:</span> <span class="mi">100</span><span class="p">}}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span class="s2">"k3"</span><span class="p">][</span><span class="s1">'insideKey'</span><span class="p">])</span>
+</code></pre></div>
+<p>Iteration over dictionaries allows traversing keys, values, or both simultaneously:</p>
+<div class="highlight"><pre><span></span><code><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'k1'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'k2'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div>
+<p>A more realistic example combines lists and dictionaries to model entities with variable
+attributes:</p>
+<div class="highlight"><pre><span></span><code><span class="n">clients</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Daniel"</span><span class="p">,</span> <span class="s2">"animals"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Pakito"</span><span class="p">,</span> <span class="s2">"Pakon"</span><span class="p">,</span> <span class="s2">"Pakonazo"</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Clemencia"</span><span class="p">,</span> <span class="s2">"animals"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Rodolfo"</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Carolina"</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">clients</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">client</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2"> has: </span><span class="si">{</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'animals'</span><span class="p">,</span><span class="w"> </span><span class="s1">'No animals'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="tensors"><span class="enumerate-headings-plugin enumerate-heading-plugin">3.5</span> Tensors</h2>
+<p>In the field of Deep Learning, <strong>tensors</strong> constitute the fundamental data structure upon
+which machine learning models and algorithms are built. Conceptually, a tensor can be
+understood as a generalization of the structures seen previously: a scalar is a
+zero-order tensor, a vector is a one-dimensional tensor, a matrix is a two-dimensional
+tensor and, more generally, a higher-order tensor represents data in multiple dimensions.
+This abstraction allows describing complex information in a uniform way, such as images,
+temporal sequences, or data batches.</p>
+<p>From a practical point of view, tensors are not usually implemented using nested Python
+lists, as these are not optimized for intensive numerical computing. Instead, specialized
+libraries such as <strong>NumPy</strong>, <strong>PyTorch</strong>, or <strong>TensorFlow</strong> are used, which provide
+efficient implementations based on contiguous memory, vectorized operations and, in many
+cases, GPU acceleration.</p>
+<p>A tensor is mainly characterized by its <strong>shape</strong>, which describes the number of
+dimensions and the size of each one, and by its <strong>data type</strong> (<em>dtype</em>), which indicates
+how values are stored in memory. These properties are essential to guarantee
+compatibility between operations and to optimize computational performance.</p>
+<p>In PyTorch, for example, tensor creation is done explicitly from existing data or through
+initialization functions:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="c1"># Scalar tensor</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span>
+
+<span class="c1"># One-dimensional tensor (vector)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Two-dimensional tensor (matrix)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+</code></pre></div>
+<p>Each of these tensors has a specific shape that can be queried directly, which
+facilitates dimension verification before applying mathematical operations. This explicit
+control of dimensions is crucial in Deep Learning, where shape mismatches are often a
+common source of errors.</p>
+<p>Operations on tensors are defined in a vectorized manner, which allows expressing complex
+calculations concisely and efficiently. For example, addition or multiplication between
+tensors is performed element-wise whenever their shapes are compatible, following
+well-defined broadcasting rules. This computational model avoids explicit loops and
+leverages internal system optimizations.</p>
+<p>Another fundamental aspect of tensors in Deep Learning libraries is their integration
+with <strong>automatic differentiation</strong> mechanisms. In PyTorch, tensors can be marked for
+gradient tracking, which allows automatically calculating derivatives during the model
+training process. This capability makes tensors not just data containers, but active
+elements within the computational graph.</p>
+<p>Finally, tensors facilitate code execution on both CPU and GPU without modifying the
+program logic. By moving a tensor to a specific device, associated operations are
+automatically executed on that hardware, which reinforces the abstraction and allows
+focusing on model design rather than low-level details. Overall, tensors represent the
+natural evolution of basic data structures toward an optimized and expressive
+computational model, indispensable in the modern development of Deep Learning systems.</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="Last update">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 30, 2025 12:43:25 UTC">December 30, 2025</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="Contributors">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"></path></svg>
+</span>
+<nav>
+      danibcorr
+    </nav>
+</span>
+</aside>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://www.linkedin.com/in/danibcorr/" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.tabs.link", "content.code.annotate", "content.code.copy", "content.tooltips", "announce.dismiss", "navigation.tabs", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.preview", "navigation.instant.progress", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+<script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../javascripts/mathjax.js"></script>
+<script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
