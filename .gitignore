@@ -5,7 +5,7 @@
 __pycache__/
 .vscode/
 .mypy_cache/
-/results/
+**/results/**
 *build/
 *dist/
 *venv/

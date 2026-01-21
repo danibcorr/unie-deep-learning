@@ -92,7 +92,7 @@ URL to access the documentation is displayed in the terminal output.
 ## License
 
 This project is distributed under the MIT License. The complete license text is available
-in the [LICENSE](LICENSE) file included in this repository.
+in the LICENSE file included in this repository.
 
 ## Author
 
