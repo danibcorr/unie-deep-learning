@@ -95,8 +95,13 @@ plugins:
       exclude:
         - index.md
   - mkdocs-jupyter:
+      include: ["*.ipynb"]
       execute: true
       allow_errors: false
+      execute_ignore:
+        - "docs/other_topics/topic_01_generative_models/*.ipynb"
+        - "docs/other_topics/topic_02_time_series_models/*.ipynb"
+        - "docs/other_topics/topic_03_others/*.ipynb"
   - awesome-nav
 
 extra:
