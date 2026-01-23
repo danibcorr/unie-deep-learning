@@ -6,9 +6,9 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Deep Learning Course" name="description"/>
-<link href="https://danibcorr.github.io/unie-deep-learning/v0.0.1/course/topic_05_sequential_models/index.html" rel="canonical"/>
-<link href="../topic_04_computer_vision/section_10_interpretability.html" rel="prev"/>
-<link href="section_01_tokenization.html" rel="next"/>
+<link href="https://danibcorr.github.io/unie-deep-learning/v0.0.1/course/topic_06_graphs_models/introduction.html" rel="canonical"/>
+<link href="../topic_05_sequential_models/section_06_moe.html" rel="prev"/>
+<link href="section_01_gnns.html" rel="next"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
 <title>Introduction - Deep Learning Course</title>
@@ -82,6 +82,9 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
 </label>
 <nav aria-label="Search" class="md-search__options">
+<a aria-label="Share" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="Share">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
 <button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
 </button>
@@ -128,7 +131,7 @@
       </a>
 </li>
 <li class="md-tabs__item md-tabs__item--active">
-<a class="md-tabs__link" href="../topic_01_initial_concepts/index.html">
+<a class="md-tabs__link" href="../topic_01_initial_concepts/introduction.html">
           
   
   
@@ -146,7 +149,7 @@
 <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="Deep Learning Course" class="md-nav__button md-logo" data-md-component="logo" href="../../index.html" title="Deep Learning Course">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -201,8 +204,7 @@
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--section md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" id="__nav_2_1" type="checkbox"/>
-<div class="md-nav__link md-nav__container">
-<a class="md-nav__link" href="../topic_01_initial_concepts/index.html">
+<label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
 <span class="md-ellipsis">
     
   
@@ -211,11 +213,8 @@
 
     
   </span>
-</a>
-<label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
 <span class="md-nav__icon md-icon"></span>
 </label>
-</div>
 <nav aria-expanded="false" aria-labelledby="__nav_2_1_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_2_1">
 <span class="md-nav__icon md-icon"></span>
@@ -227,11 +226,23 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../topic_01_initial_concepts/introduction.html">
+<span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../topic_01_initial_concepts/section_01_environment.html">
 <span class="md-ellipsis">
     
   
-    Setup Environment
+    Environment
   
 
     
@@ -255,7 +266,7 @@
 <span class="md-ellipsis">
     
   
-    Libraries and Software Design
+    OOP
   
 
     
@@ -267,8 +278,7 @@
 </li>
 <li class="md-nav__item md-nav__item--section md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" id="__nav_2_2" type="checkbox"/>
-<div class="md-nav__link md-nav__container">
-<a class="md-nav__link" href="../topic_02_mathematics/index.html">
+<label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
 <span class="md-ellipsis">
     
   
@@ -277,11 +287,8 @@
 
     
   </span>
-</a>
-<label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
 <span class="md-nav__icon md-icon"></span>
 </label>
-</div>
 <nav aria-expanded="false" aria-labelledby="__nav_2_2_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_2_2">
 <span class="md-nav__icon md-icon"></span>
@@ -292,6 +299,18 @@
 
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_02_mathematics/introduction.html">
+<span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+</a>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../topic_02_mathematics/section_01_data_structures.html">
 <span class="md-ellipsis">
@@ -407,8 +426,7 @@
 </li>
 <li class="md-nav__item md-nav__item--section md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" id="__nav_2_4" type="checkbox"/>
-<div class="md-nav__link md-nav__container">
-<a class="md-nav__link" href="../topic_04_computer_vision/index.html">
+<label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
 <span class="md-ellipsis">
     
   
@@ -417,11 +435,8 @@
 
     
   </span>
-</a>
-<label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
 <span class="md-nav__icon md-icon"></span>
 </label>
-</div>
 <nav aria-expanded="false" aria-labelledby="__nav_2_4_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_2_4">
 <span class="md-nav__icon md-icon"></span>
@@ -432,6 +447,18 @@
 
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_04_computer_vision/introduction.html">
+<span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+</a>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../topic_04_computer_vision/section_01_image_processing.html">
 <span class="md-ellipsis">
@@ -555,10 +582,9 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_2_5" type="checkbox"/>
-<div class="md-nav__link md-nav__container">
-<a class="md-nav__link md-nav__link--active" href="index.html">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
 <span class="md-ellipsis">
     
   
@@ -567,12 +593,9 @@
 
     
   </span>
-</a>
-<label class="md-nav__link md-nav__link--active" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
 <span class="md-nav__icon md-icon"></span>
 </label>
-</div>
-<nav aria-expanded="true" aria-labelledby="__nav_2_5_label" class="md-nav" data-md-level="2">
+<nav aria-expanded="false" aria-labelledby="__nav_2_5_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_2_5">
 <span class="md-nav__icon md-icon"></span>
             
@@ -583,7 +606,19 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="section_01_tokenization.html">
+<a class="md-nav__link" href="../topic_05_sequential_models/introduction.html">
+<span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_01_tokenization.html">
 <span class="md-ellipsis">
     
   
@@ -595,7 +630,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="section_02_rnn.html">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_02_rnn.html">
 <span class="md-ellipsis">
     
   
@@ -607,7 +642,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="section_03_lstm.html">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_03_lstm.html">
 <span class="md-ellipsis">
     
   
@@ -619,7 +654,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="section_04_autoencoders.html">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_04_autoencoders.html">
 <span class="md-ellipsis">
     
   
@@ -631,7 +666,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="section_05_transformers.html">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_05_transformers.html">
 <span class="md-ellipsis">
     
   
@@ -643,7 +678,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="section_06_moe.html">
+<a class="md-nav__link" href="../topic_05_sequential_models/section_06_moe.html">
 <span class="md-ellipsis">
     
   
@@ -657,10 +692,9 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--section md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_2_6" type="checkbox"/>
-<div class="md-nav__link md-nav__container">
-<a class="md-nav__link" href="../topic_06_graphs_models/index.html">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
 <span class="md-ellipsis">
     
   
@@ -669,12 +703,9 @@
 
     
   </span>
-</a>
-<label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
 <span class="md-nav__icon md-icon"></span>
 </label>
-</div>
-<nav aria-expanded="false" aria-labelledby="__nav_2_6_label" class="md-nav" data-md-level="2">
+<nav aria-expanded="true" aria-labelledby="__nav_2_6_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_2_6">
 <span class="md-nav__icon md-icon"></span>
             
@@ -684,8 +715,21 @@
 
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<a class="md-nav__link md-nav__link--active" href="introduction.html">
+<span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+</a>
+</li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../topic_06_graphs_models/section_01_gnns.html">
+<a class="md-nav__link" href="section_01_gnns.html">
 <span class="md-ellipsis">
     
   
@@ -697,7 +741,7 @@
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../topic_06_graphs_models/section_02_pytorch_geometric.html">
+<a class="md-nav__link" href="section_02_pytorch_geometric.html">
 <span class="md-ellipsis">
     
   
@@ -719,82 +763,93 @@
 </div>
 </div>
 </div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-</nav>
-</div>
-</div>
-</div>
 <div class="md-content" data-md-component="content">
+<nav aria-label="Navigation" class="md-path">
+<ol class="md-path__list">
+<li class="md-path__item">
+<a class="md-path__link" href="../../index.html">
+<span class="md-ellipsis">
+    Home
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="../topic_01_initial_concepts/introduction.html">
+<span class="md-ellipsis">
+    Course
+  </span>
+</a>
+</li>
+<li class="md-path__item">
+<a class="md-path__link" href="introduction.html">
+<span class="md-ellipsis">
+    Graph Models
+  </span>
+</a>
+</li>
+</ol>
+</nav>
 <article class="md-content__inner md-typeset">
-<h1 id="introduction"><span class="enumerate-headings-plugin enumerate-heading-plugin">24.</span> Introduction</h1>
-<p>This topic studies <strong>sequential models</strong>, with special emphasis on their application to
-text processing and time series. The starting point is the limitation of convolutional
-architectures when applied directly to textual data: Although convolutions capture local
-patterns efficiently, it is difficult for them to preserve and adequately model long
-dependencies in a sequence. As text lengthens, part of the relevant contextual
-information gradually dilutes or is lost, which limits these architectures' ability to
-understand long-range relationships.</p>
-<p>To address these limitations, models specifically designed for sequential data are
-introduced. The first block focuses on <strong>natural language processing (NLP)</strong>, starting
-with <strong>tokenization</strong> techniques. Tokenization transforms raw text into a sequence of
-manageable units (tokens), which can be words, subwords, or characters. In this process,
-input text cleaning is usually applied: punctuation marks, emojis, or other symbols are
-removed or normalized according to the task, in order to obtain a more homogeneous
-representation. On these tokens, a numerical representation that models can process is
-subsequently built.</p>
-<p>Once the text is tokenized, the use of <strong>embedding layers</strong> is introduced, which allow
-mapping each token to a dense vector in a fixed-dimensional space. These embeddings can
-be learned from scratch during model training, or initialized from <strong>pretrained
-dictionaries</strong> and <strong>already trained tokenizers</strong>, leveraging prior knowledge accumulated
-in large corpora. In this context, the advantages and disadvantages of both strategies
-are analyzed: learning task-specific embeddings versus reuse and fine-tuning of
-pre-existing embeddings.</p>
-<p>On these vector representations, the first classical sequential architectures are
-studied, based on <strong>recurrent neural networks (RNN)</strong>. RNNs process the sequence step by
-step, maintaining a hidden state that acts as memory of what has already been seen.
-However, they present important limitations, particularly the <strong>vanishing gradient
-problem</strong>: When sequences are long or the network is deep, gradients that propagate
-toward distant time steps tend to become very small, hindering the learning of long-term
-dependencies and making training unstable or inefficient.</p>
-<p>To mitigate these problems, <strong>LSTM (Long Short-Term Memory)</strong> are introduced, a variant
-of recurrent networks that incorporates <strong>memory cells</strong> and <em>gate</em> mechanisms. These
-gates explicitly control what information is stored, what is forgotten, and what is
-exposed at each time step, allowing information to remain relevant for longer intervals.
-Their internal structure, the role of input, forget, and output gates, and the advantages
-they provide over simple RNNs are analyzed.</p>
-<p>In addition to text, sequential models are naturally applied to <strong>time series</strong>. In this
-context, <strong>autoencoders</strong> and recurrent or convolutional variants are presented as tools
-for unsupervised learning of temporal patterns. These models allow detecting
-<strong>anomalies</strong> and unusual patterns by comparing the observed signal with the
-reconstruction produced by the decoder, as well as identifying samples that are <em>out of
-distribution</em>. The basic encoder-decoder configuration, the reconstruction function, and
-the use of error thresholds for decision-making are discussed.</p>
-<p>Next, the architectures that constitute the <strong>state of the art in 2025</strong> for sequential
-processing are introduced: <strong>Transformers</strong>. These models are based on <strong>attention
-mechanisms</strong>, which allow each position in the sequence to relate directly to any other,
-capturing dependencies at multiple scales without resorting to explicit recurrences. A
-decisive advantage of Transformers is their capacity for <strong>parallel processing</strong> of
-tokens during the training phase, which enables very efficient exploitation of
-accelerated hardware (GPUs, TPUs) and overcomes one of the main limitations of RNNs and
-LSTMs, whose sequential processing hinders parallelization and slows convergence.</p>
-<p>On the basis of the standard Transformer, different <strong>derived architectures and
-extensions</strong> are studied, including <strong>Mixture of Experts (MoE)</strong> approaches. In these
-models, multiple experts are trained (for example, several Transformer-type models or
-related variants) and their predictions are combined through a routing module (<em>gating
-network</em>) that decides which experts to activate for each input. This scheme allows
-effectively increasing model capacity while maintaining controlled computational cost, by
-activating only a subset of experts for each input.</p>
-<p>Finally, the use of <strong>pretrained models</strong> in the sequential domain is explored, both for
-language and multimodal, with special attention to those with <strong>open weights</strong> or whose
-architectures have been released by the research community and industry. The
-<strong>Transformers library from Hugging Face</strong> is presented as a standard tool for loading,
-using, and adapting pretrained models, both language models (LLMs of different sizes) and
-vision and multimodal models. It shows how to integrate pretrained tokenizers, how to
-reuse embeddings, and how to perform <em>fine-tuning</em> or <em>inference-only</em> tasks with
-relatively low implementation effort.</p>
+<a class="md-content__button md-icon" href="https://github.com/danibcorr/unie-deep-learning/edit/master/docs/course/topic_06_graphs_models/introduction.md" rel="edit" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+</a>
+<a class="md-content__button md-icon" href="https://github.com/danibcorr/unie-deep-learning/raw/master/docs/course/topic_06_graphs_models/introduction.md" title="View source of this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
+</a>
+<h1 id="introduction"><span class="enumerate-headings-plugin enumerate-heading-plugin">31.</span> Introduction</h1>
+<p>In this topic, we study <strong>Graph Neural Networks (GNN)</strong>, whose main objective is to learn
+from data that can be naturally represented as <strong>graphs</strong>. A graph is a structure formed
+by <strong>nodes (vertices)</strong> and <strong>edges</strong> that describe relationships or interactions between
+entities. This form of representation is especially suitable for numerous real-world
+problems, in which the connections between elements are as important as the elements
+themselves.</p>
+<p>Graphs appear implicitly in many everyday domains. In <strong>social networks</strong>, for example,
+each user can be modeled as a node and friendship, following, or interaction
+relationships as edges. Furthermore, attributes or characteristics can be associated with
+each node, such as salary range, age, geographic location, occupation, or demographic
+variables. These characteristics, together with the connection structure, allow building
+models that better capture the dynamics and organization of the social network than if
+users were considered in isolation.</p>
+<p>Similarly, an <strong>image</strong> can be interpreted as a graph in which each pixel acts as a node
+connected to its neighboring pixels (in a 4, 8, or wider neighborhood), and where the
+intensity or color vector (for example, in RGB format) is used as node attributes. This
+graph perspective allows applying graph-based processing techniques to visual problems,
+establishing a bridge between <em>computer vision</em> and <em>graph learning</em>.</p>
+<p>There are also graph representations that are especially relevant in scientific and
+industrial fields. A paradigmatic case is that of <strong>molecules</strong>, where atoms are modeled
+as nodes and chemical bonds as edges. This type of representation has been key in
+developments such as AlphaFold, presented by Google DeepMind, for protein folding, or in
+multiple works on <em>drug discovery</em> and computational chemistry. Another example is
+offered by systems like <strong>Google Maps</strong>, where intersections and points of interest can
+be considered nodes, and roads or connections between them, edges; on this structure,
+problems such as traffic prediction, travel time estimation, or optimal route calculation
+are formulated.</p>
+<p>Throughout the topic, we will see how to <strong>preprocess and transform heterogeneous data</strong>
+to represent them as graphs suitable for training neural models. We will analyze how to
+explicitly define nodes, edges, and their attributes, and how to construct data
+structures compatible with modern deep learning libraries for graphs.</p>
+<p>A central objective is to understand how to <strong>implement a graph from scratch</strong> and how to
+apply different variants of graph neural networks to it. Special emphasis is placed on
+<strong>GNN based on graph convolutions</strong> (<em>Graph Convolutional Networks, GCN</em>), which
+generalize the idea of classical convolution to non-Euclidean domains. In this framework,
+each node updates its representation by aggregating information from its neighbors
+according to a <em>message passing</em> scheme, which allows capturing local and global patterns
+in the graph structure.</p>
+<p>In addition to graph convolutions, we also study <strong>attention mechanisms in graphs</strong>
+(<em>Graph Attention Networks, GAT</em> and variants). These methods assign differentiated
+weights to connections between nodes, allowing the network to learn which neighbors it
+should pay more attention to depending on the context and task. This approach is
+especially useful when the importance of relationships is not homogeneous or when a finer
+interpretation of interactions between nodes is desired.</p>
+<p>The techniques described are applied both to <strong>images modeled as graphs</strong> and to other
+types of data structured in networks, demonstrating the versatility of GNNs to address
+problems of node classification, link prediction, whole graph classification, and other
+related tasks.</p>
+<p>For practical implementation, we will use the <strong>PyTorch Geometric</strong> library, a
+specialized framework that extends PyTorch with data structures and optimized operations
+for deep learning on graphs. PyTorch Geometric facilitates the definition of graphs, the
+construction of graph convolution and attention layers, and the training of complex
+models on large collections of graphs or large-scale graphs.</p>
 <aside class="md-source-file">
 <span class="md-source-file__fact">
 <span class="md-icon" title="Last update">
@@ -822,6 +877,34 @@ relatively low implementation effort.</p>
 </button>
 </main>
 <footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Mixture of Experts" class="md-footer__link md-footer__link--prev" href="../topic_05_sequential_models/section_06_moe.html">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                Mixture of Experts
+              </div>
+</div>
+</a>
+<a aria-label="Next: Graph Neural Networks" class="md-footer__link md-footer__link--next" href="section_01_gnns.html">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                Graph Neural Networks
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+</div>
+</a>
+</nav>
 <div class="md-footer-meta md-typeset">
 <div class="md-footer-meta__inner md-grid">
 <div class="md-copyright">
@@ -845,7 +928,7 @@ relatively low implementation effort.</p>
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <div class="md-progress" data-md-component="progress" role="progressbar"></div>
-<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.tabs.link", "content.code.annotate", "content.code.copy", "content.tooltips", "announce.dismiss", "navigation.tabs", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.preview", "navigation.instant.progress", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.preview", "navigation.instant.progress", "navigation.indexes", "navigation.path", "navigation.tabs", "navigation.top", "navigation.tracking", "navigation.sections", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
 <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
 <script src="../../javascripts/mathjax.js"></script>
 <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
