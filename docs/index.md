@@ -1,6 +1,6 @@
 ## Copyright and License
 
-© 2025, Daniel Bazo Correa
+© 2026, Daniel Bazo Correa
 
 This course material is licensed under the MIT License.
 
