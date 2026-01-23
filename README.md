@@ -87,29 +87,9 @@ The `make setup` command automatically installs the required Python dependencies
 prepares a suitable execution environment for the notebooks and scripts in the
 repository.
 
-## Documentation
-
-The full course documentation is available at:  
-[https://danibcorr.github.io/unie-deep-learning/](https://danibcorr.github.io/unie-deep-learning/)
-
-To serve the documentation locally from the project root, run:
-
-```bash
-make doc
-```
-
-This command generates or updates the documentation and starts a local web server. The
-URL to access the documentation is displayed in the terminal output.
-
-## License
-
-This project is distributed under the MIT License. The complete license text is available
-in the LICENSE file included in this repository.
-
 ## Author
 
 This course has been developed by Daniel Bazo Correa. Additional information and
 professional contact can be found through
 [LinkedIn](https://www.linkedin.com/in/danibcorr/) or
 [GitHub](https://github.com/danibcorr).
-
