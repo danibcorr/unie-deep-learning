@@ -1,6 +1,6 @@
 ## Copyright and License
 
-© 2025, Daniel Bazo Correa
+© 2026, Daniel Bazo Correa
 
 This course material is licensed under the MIT License.
 
@@ -112,3 +112,4 @@ This course has been developed by Daniel Bazo Correa. Additional information and
 professional contact can be found through
 [LinkedIn](https://www.linkedin.com/in/danibcorr/) or
 [GitHub](https://github.com/danibcorr).
+
