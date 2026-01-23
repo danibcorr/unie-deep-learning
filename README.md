@@ -1,7 +1,19 @@
-<p align="center">
-  <img src="./docs/assets/images/logo.png" height="250"/>
-  <br/>
-</p>
+## Copyright and License
+
+© 2025, Daniel Bazo Correa
+
+This course material is licensed under the MIT License.
+
+### Disclaimer
+
+- This course material is provided "as is", without warranty of any kind, express or
+  implied.
+- The author assumes no responsibility or liability for any errors, omissions, or
+  outcomes resulting from the use of this content.
+- All analyses and interpretations are for educational and research purposes only and do
+  not constitute professional advice.
+
+---
 
 <p align="center">
   <a href="https://github.com/danibcorr/unie-deep-learning/actions/workflows/workflow.yaml"><img src="https://github.com/danibcorr/unie-deep-learning/actions/workflows/workflow.yaml/badge.svg"></a>
@@ -97,6 +109,6 @@ in the LICENSE file included in this repository.
 ## Author
 
 This course has been developed by Daniel Bazo Correa. Additional information and
-professional contact can be found through LinkedIn at
-[@danibcorr](https://www.linkedin.com/in/danibcorr/) or GitHub at
-[@danibcorr](https://github.com/danibcorr).
+professional contact can be found through
+[LinkedIn](https://www.linkedin.com/in/danibcorr/) or
+[GitHub](https://github.com/danibcorr).

@@ -1,12 +1,45 @@
 nav:
   - Home: index.md
   - Course:
-      - Initial Concepts: course/topic_01_initial_concepts/
-      - Mathematics: course/topic_02_mathematics/
-      - Applications: course/topic_03_applications/
-      - Computer Vision: course/topic_04_computer_vision/
-      - Sequential Models: course/topic_05_sequential_models/
-      - Graph Models: course/topic_06_graphs_models/
+      - Initial Concepts:
+          - Introduction: course/topic_01_initial_concepts/introduction.md
+          - Environment: course/topic_01_initial_concepts/section_01_environment.md
+          - Data Structures: course/topic_01_initial_concepts/section_02_data_structures.md
+          - OOP: course/topic_01_initial_concepts/section_03_python_libraries_oop.md
+      - Mathematics:
+          - Introduction: course/topic_02_mathematics/introduction.md
+          - Data Structures: course/topic_02_mathematics/section_01_data_structures.ipynb
+          - Basic Maths: course/topic_02_mathematics/section_02_basic_maths.ipynb
+          - Mathematical Concepts: course/topic_02_mathematics/section_03_mathematical_concepts.ipynb
+      - Applications:
+          - Neural Networks: course/topic_03_applications/section_01_artificial_neuron.ipynb
+          - Gradient Descent: course/topic_03_applications/section_02_gradient_descent.ipynb
+          - Regularization: course/topic_03_applications/section_03_regularization_techniques.ipynb
+          - Optimizers: course/topic_03_applications/section_04_optimizers.ipynb
+      - Computer Vision:
+          - Introduction: course/topic_04_computer_vision/introduction.md
+          - Image Processing: course/topic_04_computer_vision/section_01_image_processing.ipynb
+          - Normalization: course/topic_04_computer_vision/section_02_normalization.ipynb
+          - Convolutional Layers: course/topic_04_computer_vision/section_03_convolutional_layer.ipynb
+          - LeNet: course/topic_04_computer_vision/section_04_lenet.ipynb
+          - VGG: course/topic_04_computer_vision/section_05_vgg.ipynb
+          - ResNet: course/topic_04_computer_vision/section_06_resnet.ipynb
+          - Transfer Learning: course/topic_04_computer_vision/section_07_transfer_learning.ipynb
+          - Auto Encoders: course/topic_04_computer_vision/section_08_autoencoders.ipynb
+          - Attention: course/topic_04_computer_vision/section_09_attention.ipynb
+          - Interpretability: course/topic_04_computer_vision/section_10_interpretability.ipynb
+      - Sequential Models:
+          - Introduction: course/topic_05_sequential_models/introduction.md
+          - Tokenization: course/topic_05_sequential_models/section_01_tokenization.ipynb
+          - Recurrent Neural Networks: course/topic_05_sequential_models/section_02_rnn.ipynb
+          - Long Short Term Memory: course/topic_05_sequential_models/section_03_lstm.ipynb
+          - Auto Encoders: course/topic_05_sequential_models/section_04_autoencoders.ipynb
+          - Transformers: course/topic_05_sequential_models/section_05_transformers.ipynb
+          - Mixture of Experts: course/topic_05_sequential_models/section_06_moe.ipynb
+      - Graph Models:
+          - Introduction: course/topic_06_graphs_models/introduction.md
+          - Basic Graphs: course/topic_06_graphs_models/section_01_gnns.ipynb
+          - PyTorch Geometric: course/topic_06_graphs_models/section_02_pytorch_geometric.ipynb
 sort:
   ignore_case: true
   type: alphabetical
